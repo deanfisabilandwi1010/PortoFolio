@@ -1,0 +1,38 @@
+:root {
+  /* Calm Luxury palette — the only interface colors on this site. */
+  --color-mist: #dfe5f3;
+  --color-teal: #557373;
+  --color-olive: #272401;
+  --color-ivory: #f2efea;
+  --color-ink: #0d0d0d;
+
+  --page-bg: var(--color-ivory);
+  --surface: var(--color-ivory);
+  --surface-secondary: var(--color-mist);
+  --text-primary: var(--color-ink);
+  --text-heading: var(--color-olive);
+  --accent: var(--color-teal);
+  --button-bg: var(--color-olive);
+  --button-text: var(--color-ivory);
+  --border-subtle: rgba(85, 115, 115, 0.24);
+  --border-strong: rgba(39, 36, 1, 0.16);
+  --shadow-window: 0 12px 36px rgba(13, 13, 13, 0.14);
+
+  --font-sans: "Manrope Variable", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
+
+  --gutter: clamp(20px, 2.2vw, 32px);
+  --col-gap: clamp(20px, 1.6vw, 28px);
+  --header-h: 64px;
+  --section-space: clamp(96px, 14vw, 200px);
+
+  --text-label: 0.8125rem;
+  --text-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-hero: clamp(2.375rem, 1.6rem + 2.4vw, 4rem);
+  --text-section: clamp(2.5rem, 1.2rem + 5.4vw, 7rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-photo: 8px;
+}

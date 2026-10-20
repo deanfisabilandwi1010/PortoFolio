@@ -1,0 +1,145 @@
+/* 1. WindowPosition — x/y transform owned by Draggable */
+.position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* 2. WindowTransition — opacity/scale owned by open/close tweens */
+.transition {
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+/* 3. WindowSurface — size, chrome, content */
+.surface {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  border: 1px solid rgba(39, 36, 1, 0.28);
+  box-shadow: var(--shadow-window);
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.titleBar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding-left: 12px;
+  background: var(--color-mist);
+  border-bottom: 1px solid rgba(39, 36, 1, 0.18);
+  touch-action: none;
+  user-select: none;
+}
+
+.focused {
+  border-color: var(--color-olive);
+}
+.focused .titleBar {
+  background: linear-gradient(var(--color-mist), var(--color-mist)) padding-box;
+  box-shadow: inset 0 -2px 0 var(--color-teal);
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-olive);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.title:focus-visible {
+  outline-offset: 2px;
+}
+
+.controls {
+  display: flex;
+  height: 100%;
+}
+
+.ctrl,
+.navBtn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-olive);
+}
+.navBtn svg {
+  width: 16px;
+  height: 16px;
+}
+.navBtn:hover,
+.ctrl:hover {
+  background: rgba(85, 115, 115, 0.14);
+}
+.ctrl:focus-visible,
+.navBtn:focus-visible {
+  outline-offset: -4px;
+}
+
+.glyph {
+  display: block;
+  width: 12px;
+  height: 12px;
+  transition: background-color 0.15s ease;
+}
+.min {
+  height: 3px;
+  margin-top: 8px;
+  background: var(--color-teal);
+}
+.max {
+  border: 2px solid var(--color-teal);
+}
+.restore {
+  width: 12px;
+  height: 12px;
+  background: var(--color-teal);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.close {
+  border-radius: 50%;
+  background: var(--color-olive);
+}
+.ctrl:hover .min,
+.ctrl:hover .restore,
+.ctrl:hover .close {
+  background: var(--color-ink);
+}
+.ctrl:hover .max {
+  border-color: var(--color-ink);
+}
+
+.body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+/* Phone: one full panel, no drag, no overlap */
+.panel {
+  inset: 0;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+}
+.panel .surface {
+  box-shadow: none;
+}
+
+:global(.is-dragging-window) .surface {
+  user-select: none;
+}

@@ -1,0 +1,64 @@
+.marquee {
+  position: relative;
+  margin-block: clamp(56px, 7vw, 112px) 0;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+  /* the lean must never cause sideways scroll */
+  width: 104vw;
+  margin-left: -2vw;
+}
+
+.row {
+  display: flex;
+  padding-block: clamp(6px, 0.8vw, 14px);
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+.alt {
+  background: var(--color-mist);
+  color: var(--color-olive);
+}
+
+.track {
+  display: flex;
+  flex: none;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.solid,
+.serif {
+  display: inline-flex;
+  align-items: center;
+  font-size: clamp(2.5rem, 1.2rem + 6vw, 7.5rem);
+  line-height: 1.05;
+}
+.solid {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.75rem, 1.3rem + 6.6vw, 8.25rem);
+}
+
+.star {
+  display: inline-block;
+  width: 0.32em;
+  height: 0.32em;
+  margin-inline: 0.45em;
+  background: var(--color-teal);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+.alt .star {
+  background: var(--color-olive);
+}

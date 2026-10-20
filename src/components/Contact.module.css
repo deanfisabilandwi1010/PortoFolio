@@ -1,0 +1,102 @@
+.contact {
+  /* follows the desktop scene directly: the device floats up into this */
+  padding-block: clamp(40px, 5vw, 80px) clamp(72px, 9vw, 140px);
+  scroll-margin-top: var(--header-h);
+  overflow: hidden;
+}
+
+.head {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.kicker {
+  color: var(--color-teal);
+}
+
+.sub {
+  max-width: 40ch;
+}
+
+/* Dashed rail the CTA travels along */
+.rail {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-top: clamp(40px, 6vw, 88px);
+}
+.rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1.5px dashed rgba(85, 115, 115, 0.55);
+}
+.railDone {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 0.75px);
+  height: 1.5px;
+  background: var(--color-olive);
+  transform-origin: left;
+  transform: scaleX(0.5);
+}
+
+.cta {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(220px, 22vw, 320px);
+  aspect-ratio: 1;
+  color: var(--color-ivory);
+}
+
+.inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.shape path {
+  fill: var(--color-olive);
+  transition: fill 0.22s var(--ease-out);
+}
+.cta:hover .shape path,
+.cta:focus-visible .shape path {
+  fill: var(--color-ink);
+}
+.inner {
+  transition: scale 0.22s var(--ease-out);
+}
+.cta:hover .inner {
+  scale: 1.03;
+}
+
+.ctaLabel {
+  position: relative;
+  margin-top: 12%;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.625rem, 1.1rem + 1.3vw, 2.375rem);
+  line-height: 1.05;
+  text-align: center;
+}
+.ctaLabel svg {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  margin-left: 6px;
+  vertical-align: 0.05em;
+}

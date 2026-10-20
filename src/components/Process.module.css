@@ -1,0 +1,228 @@
+.process {
+  padding-top: var(--section-space);
+  scroll-margin-top: var(--header-h);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 24px;
+  align-items: end;
+}
+.head > :global(.section-title) {
+  grid-column: 1 / span 8;
+}
+
+.kicker {
+  grid-column: 1 / -1;
+  color: var(--color-teal);
+}
+
+.note {
+  grid-column: 9 / span 4;
+  max-width: 36ch;
+}
+
+.stage {
+  --ground: 250px;
+  --wheel: clamp(120px, 10.5vw, 168px);
+  position: relative;
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--col-gap);
+  /* bars rise out of this edge */
+  overflow: hidden;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  padding: 24px;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-mist);
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(223, 229, 243, 0.3);
+}
+
+.shape {
+  width: 18px;
+  height: 18px;
+  background: var(--color-mist);
+}
+.circle {
+  border-radius: 50%;
+}
+.diamond {
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.square {
+  background: none;
+  border: 1.5px solid var(--color-mist);
+}
+.half {
+  border-radius: 18px 18px 0 0;
+  height: 9px;
+}
+
+.cardTitle {
+  margin-top: auto;
+  padding-top: 64px;
+  font-size: clamp(1.75rem, 1.2rem + 1.2vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.cardTitle :global(.serif) {
+  display: block;
+  font-size: 1.08em;
+  color: var(--color-mist);
+}
+
+.cardBody {
+  margin-top: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgba(242, 239, 234, 0.86);
+}
+
+@media (max-width: 1023px) {
+  .head > :global(.section-title),
+  .note {
+    grid-column: 1 / -1;
+  }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    min-height: 0;
+  }
+  .cardTitle {
+    padding-top: 40px;
+  }
+}
+
+/* Rolling wheel (desktop scene) — rides on each card's road */
+.wheel {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: calc(var(--ground) - var(--wheel));
+  width: var(--wheel);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.wheel svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+.rimUnder,
+.rim,
+.spokes {
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+/* two-tone rim: readable over olive cards and the ivory gaps alike */
+.rimUnder {
+  stroke: var(--color-teal);
+  stroke-width: 4;
+}
+.rim {
+  stroke: var(--color-mist);
+  stroke-width: 1.6;
+}
+.spokes {
+  stroke: var(--color-teal);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 4;
+}
+.hub {
+  fill: var(--color-mist);
+  stroke: var(--color-teal);
+  stroke-width: 2;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--ground) - var(--wheel) / 2);
+  border-top: 1px dashed rgba(223, 229, 243, 0.45);
+  pointer-events: none;
+}
+.road {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(var(--ground) - 10px);
+  height: 20px;
+  overflow: visible;
+  pointer-events: none;
+}
+.road path {
+  fill: none;
+  stroke: var(--color-mist);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.note em {
+  font-size: 1.15em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel,
+  .track,
+  .road {
+    display: none;
+  }
+  .cards {
+    overflow: visible;
+  }
+}
+
+/* Phones & tablets with motion: one horizontal row that slides as you scroll */
+@media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+  .stage {
+    --ground: 230px;
+    --wheel: 96px;
+    overflow: hidden;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+  .cards {
+    display: flex;
+    width: max-content;
+    overflow: visible;
+    gap: 14px;
+  }
+  .card {
+    width: min(78vw, 360px);
+    min-height: 430px;
+  }
+  .cardTitle {
+    padding-top: 48px;
+  }
+}

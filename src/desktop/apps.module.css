@@ -1,0 +1,166 @@
+/* Photo viewer */
+.viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-mist);
+}
+.viewerStage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+/* Centered and contained; max-* (not width/height) so small photos are never upscaled. */
+.viewerStage img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  border-radius: 2px;
+}
+.viewerCaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--color-ivory);
+  border-top: 1px solid var(--border-subtle);
+  color: var(--color-olive);
+  font-size: 0.6875rem;
+}
+
+/* Projects folder */
+.folder {
+  padding: 14px;
+}
+.folderPath {
+  color: var(--color-teal);
+  margin-bottom: 12px;
+}
+.folderList {
+  display: grid;
+  gap: 12px;
+}
+.folderItem {
+  display: grid;
+  grid-template-columns: minmax(120px, 42%) 1fr;
+  gap: 14px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--border-subtle);
+}
+.folderItem img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+}
+.folderMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.folderTitle {
+  font-weight: 700;
+  color: var(--color-olive);
+  line-height: 1.25;
+}
+.folderSub {
+  font-size: 0.8125rem;
+}
+.folderActions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 8px;
+}
+.miniBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+.miniBtn:hover {
+  background: var(--color-ink);
+}
+.miniBtn svg {
+  width: 12px;
+  height: 12px;
+}
+.miniGhost {
+  background: var(--color-ivory);
+  color: var(--color-olive);
+  border: 1px solid var(--color-teal);
+}
+.miniGhost:hover {
+  background: var(--color-mist);
+}
+
+/* Text documents */
+.doc {
+  padding: 18px 20px 24px;
+  display: grid;
+  gap: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.doc hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px dashed var(--color-teal);
+  margin: 4px 0;
+}
+.doc a {
+  color: var(--color-olive);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-teal);
+  text-underline-offset: 3px;
+}
+.docLine b,
+.contactList b {
+  display: inline-block;
+  min-width: 84px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-teal);
+  text-transform: uppercase;
+}
+.docSection {
+  display: grid;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-teal);
+}
+.docSection h4 {
+  margin: 0;
+  color: var(--color-olive);
+  font-size: 1rem;
+}
+.docSection ul,
+.contactList {
+  display: grid;
+  gap: 6px;
+}
+.docSection li::before {
+  content: "— ";
+  color: var(--color-teal);
+}
+
+@media (max-width: 479px) {
+  .folderItem {
+    grid-template-columns: 1fr;
+  }
+}

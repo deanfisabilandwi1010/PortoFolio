@@ -1,0 +1,158 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  color: var(--color-ivory);
+  pointer-events: auto;
+}
+
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--color-olive);
+  will-change: transform;
+}
+.top {
+  top: 0;
+}
+.bottom {
+  bottom: 0;
+}
+
+.topMeta {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.counter {
+  font-size: clamp(0.875rem, 0.7rem + 0.5vw, 1.125rem);
+  letter-spacing: 0.3em;
+  color: var(--color-ivory);
+}
+
+.hint {
+  color: var(--color-mist);
+  letter-spacing: 0.14em;
+}
+.arrows {
+  display: inline-block;
+  margin-left: 10px;
+  letter-spacing: -0.1em;
+  animation: nudge 0.9s ease-in-out infinite;
+}
+@keyframes nudge {
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.bottomMeta {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  color: var(--color-mist);
+}
+.name {
+  font-size: clamp(1.25rem, 1rem + 1vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ivory);
+}
+
+/* Perforated line across the middle; the solid part is what has been "cut". */
+.line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0;
+  border-top: 1.5px dashed rgba(242, 239, 234, 0.55);
+}
+.cut {
+  position: absolute;
+  left: 0;
+  top: -1.5px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-ivory);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.cutter {
+  position: absolute;
+  left: 0;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  background: var(--color-mist);
+  border: 2px solid var(--color-ivory);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  box-shadow: 0 0 0 6px rgba(223, 229, 243, 0.15);
+}
+
+.skip {
+  position: absolute;
+  z-index: 2;
+  top: var(--gutter);
+  right: var(--gutter);
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(242, 239, 234, 0.45);
+  color: var(--color-ivory);
+}
+.skip:hover {
+  background: rgba(242, 239, 234, 0.12);
+}
+
+@media (max-width: 639px) {
+  .bottomMeta {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrows {
+    animation: none;
+  }
+}
+
+/* Ivory twin of the hero wordmark; positioned over it at runtime. */
+.mark {
+  position: absolute;
+  z-index: 1;
+  top: 70px;
+  left: var(--gutter);
+  right: auto;
+  width: calc(100% - var(--gutter) * 2);
+  color: var(--color-ivory);
+}
+
+.dots {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 96px);
+  translate: -50% 0;
+  display: flex;
+  gap: 12px;
+}
+.dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(242, 239, 234, 0.25);
+  transform: scale(0.7);
+}

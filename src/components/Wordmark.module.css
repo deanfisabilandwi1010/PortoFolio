@@ -1,0 +1,47 @@
+.wrap {
+  container-type: inline-size;
+  width: 100%;
+}
+
+.text {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 0.22em;
+  font-size: min(calc(100cqw / var(--wm-ratio)), var(--wm-max));
+  font-weight: 800;
+  line-height: 0.74;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  font-kerning: normal;
+}
+
+.word {
+  display: flex;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  /* room for the glyph below the tight line-height so the mask never crops it */
+  padding: 0.06em 0.08em 0.04em;
+  margin-inline: -0.08em;
+}
+
+.char {
+  display: inline-block;
+  will-change: auto;
+}
+
+@media (max-width: 639px) {
+  .canStack .text {
+    flex-direction: column;
+    gap: 0;
+    font-size: min(calc(100cqw / var(--wm-ratio-stacked)), var(--wm-max));
+  }
+}
+
+/* After the entrance, letters may lift past their masks (hero pointer play). */
+.wrap[data-live] .mask {
+  overflow: visible;
+}

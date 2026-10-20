@@ -1,0 +1,68 @@
+.wrap {
+  /* Sized by the available height so it never collides with the name below. */
+  width: min(100%, calc((100svh - 300px) * 0.74), 440px);
+  margin-inline: auto;
+  perspective: 1000px;
+}
+
+.arch {
+  --r: 0px;
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px 10px 10px;
+  overflow: hidden;
+  background: var(--color-mist);
+  outline: 1px solid var(--color-olive);
+  outline-offset: 8px;
+  box-shadow: 0 30px 60px rgba(13, 13, 13, 0.14);
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.photo {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  max-width: none;
+  height: 108%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+.base {
+  object-position: 50% 12%;
+}
+/* Second photo, wiped in as a circle from the pointer */
+.reveal {
+  object-position: 76% 30%;
+  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 99%, transparent 100%);
+  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 99%, transparent 100%);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  color: var(--color-olive);
+  font-size: 0.6875rem;
+}
+.hint {
+  color: var(--color-teal);
+}
+
+@media (max-width: 1023px) {
+  .wrap {
+    width: min(100%, 360px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arch[data-revealed] .reveal {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

@@ -1,0 +1,280 @@
+.section {
+  margin-top: var(--section-space);
+  padding-block: clamp(72px, 9vw, 140px);
+  background: var(--color-mist);
+  scroll-margin-top: var(--header-h);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 28px;
+  align-items: end;
+}
+.head > :global(.section-title) {
+  grid-column: 1 / -1;
+}
+
+.kicker {
+  grid-column: 1 / -1;
+  color: var(--color-teal);
+}
+
+.intro {
+  grid-column: 8 / span 5;
+  display: grid;
+  gap: 18px;
+  align-content: end;
+}
+.intro img {
+  width: 150px;
+  height: auto;
+
+}
+
+.files {
+  margin-top: clamp(48px, 6vw, 88px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--col-gap);
+}
+
+.file {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(24px, 3vw, 44px);
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.light {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+}
+
+.dark {
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+
+.fileHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: var(--color-teal);
+}
+.dark .fileHead {
+  color: var(--color-mist);
+}
+
+.letter {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(4.5rem, 7vw, 7.5rem);
+  line-height: 0.8;
+  color: var(--color-olive);
+}
+.dark .letter {
+  color: var(--color-mist);
+}
+
+.fileTitle {
+  font-size: clamp(2rem, 1.2rem + 2.4vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-olive);
+}
+.dark .fileTitle {
+  color: var(--color-ivory);
+}
+.fileTitle :global(.serif) {
+  display: block;
+  font-size: 1.08em;
+}
+
+.summary {
+  max-width: 52ch;
+}
+
+.points {
+  display: grid;
+  gap: 10px;
+  counter-reset: pt;
+}
+.points li {
+  position: relative;
+  padding-left: 36px;
+  counter-increment: pt;
+}
+.points li::before {
+  content: counter(pt, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-teal);
+}
+.dark .points li::before {
+  color: var(--color-mist);
+}
+
+.tags {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags li {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1px solid var(--color-teal);
+  color: var(--color-olive);
+}
+.dark .tags li {
+  border-color: rgba(223, 229, 243, 0.4);
+  color: var(--color-ivory);
+}
+
+/* File A: a quiet pipeline strip */
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 8px;
+  border-top: 1px solid var(--border-strong);
+}
+.pipeline span {
+  position: relative;
+  padding-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-olive);
+}
+.pipeline span::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  background: var(--color-teal);
+  transform: rotate(calc(var(--i) * 45deg));
+}
+.pipeline span:last-child::before {
+  background: var(--color-olive);
+  border-radius: 50%;
+}
+
+/* File B: detect → triage → fix → verify loop */
+.loopWrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 36px;
+  align-items: center;
+  padding-block: 20px;
+}
+
+.radar {
+  position: relative;
+  width: 200px;
+  aspect-ratio: 1;
+  margin-inline: 20px;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(223, 229, 243, 0.28);
+  border-radius: 50%;
+}
+.ring:nth-child(2) {
+  inset: 18%;
+}
+.ring:nth-child(3) {
+  inset: 36%;
+  background: rgba(85, 115, 115, 0.45);
+}
+
+.sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(223, 229, 243, 0.34), rgba(223, 229, 243, 0) 24%);
+  animation: sweep 6s linear infinite;
+  animation-play-state: paused;
+}
+.radar[data-running] .sweep {
+  animation-play-state: running;
+}
+
+@keyframes sweep {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.node {
+  position: absolute;
+  padding: 4px 8px;
+  background: var(--color-olive);
+  border: 1px solid var(--color-mist);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  translate: -50% -50%;
+}
+.node[data-n="0"] {
+  left: 50%;
+  top: 0;
+}
+.node[data-n="1"] {
+  left: 100%;
+  top: 50%;
+}
+.node[data-n="2"] {
+  left: 50%;
+  top: 100%;
+}
+.node[data-n="3"] {
+  left: 0;
+  top: 50%;
+}
+.node b {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--color-mist);
+  margin-right: 2px;
+}
+
+@media (max-width: 1023px) {
+  .head > :global(.section-title),
+  .intro {
+    grid-column: 1 / -1;
+  }
+  .files {
+    grid-template-columns: 1fr;
+  }
+  .file {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .loopWrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .loopWrap .points {
+    justify-self: stretch;
+  }
+  .radar {
+    margin: 20px 30px;
+  }
+}

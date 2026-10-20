@@ -1,0 +1,375 @@
+.scene {
+  position: relative;
+  scroll-margin-top: var(--header-h);
+}
+
+.intro {
+  display: grid;
+  justify-items: start;
+  gap: 18px;
+}
+
+.kicker {
+  color: var(--color-teal);
+}
+
+.introText {
+  max-width: 44ch;
+}
+
+.stage {
+  position: relative;
+}
+
+.zoom {
+  position: relative;
+  transform-origin: 50% 50%;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-mist);
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(180deg, rgba(223, 229, 243, 0.5), rgba(85, 115, 115, 0.25)),
+    var(--color-mist);
+}
+
+/* ---------- Flat mode: phones, tablets, reduced motion ---------- */
+.flat {
+  padding-top: var(--section-space);
+}
+.flat .intro {
+  position: relative;
+  padding-bottom: 32px;
+}
+.flat .stage {
+  padding-inline: var(--gutter);
+}
+.flat .zoom {
+  height: clamp(620px, 82svh, 920px);
+  border: 1px solid var(--color-olive);
+  box-shadow: var(--shadow-window);
+}
+
+@media (max-width: 767px) {
+  .flat .zoom {
+    height: min(680px, calc(100svh - var(--header-h) - 24px));
+  }
+}
+
+/* ---------- Scene mode: blob reveal → full desktop → pull back to the device ---------- */
+.monitorScene,
+.phoneScene {
+  margin-top: var(--section-space);
+}
+.monitorScene .track {
+  height: 340svh;
+}
+.phoneScene .track {
+  height: 280svh;
+}
+.monitorScene .stage,
+.phoneScene .stage {
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+  overflow: hidden;
+}
+.monitorScene .zoom,
+.phoneScene .zoom {
+  position: absolute;
+  inset: 12px var(--gutter);
+}
+.monitorScene .screen,
+.phoneScene .screen {
+  --blob: 9999px;
+  -webkit-mask-image: radial-gradient(circle at 50% 108%, #000 calc(var(--blob) - 160px), transparent var(--blob));
+  mask-image: radial-gradient(circle at 50% 108%, #000 calc(var(--blob) - 160px), transparent var(--blob));
+}
+.monitorScene .screen {
+  border-radius: 6px;
+}
+.phoneScene .zoom {
+  inset: 10px 12px;
+}
+.phoneScene .screen {
+  border-radius: calc(var(--bz, 16px) * 0.9);
+}
+
+/* Statement over the growing blob */
+.statement {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: var(--gutter);
+  text-align: center;
+  pointer-events: none;
+}
+.statementTitle {
+  max-width: 14ch;
+  color: var(--color-olive);
+  font-size: clamp(2.75rem, 1.4rem + 5vw, 7.5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+.statementTitle :global(.serif) {
+  font-size: 1.08em;
+  letter-spacing: -0.01em;
+}
+.word {
+  display: inline-block;
+  margin-right: 0.22em;
+}
+.word:last-child {
+  margin-right: 0;
+}
+.statementSub {
+  color: var(--color-olive);
+}
+
+/* CRT casing — dimensions come from --bz / --bz-top / --bz-bottom (set from the measured screen) */
+.monitor {
+  --chin: calc(var(--bz-bottom, 160px) * 0.57);
+  --stand: calc(var(--bz-bottom, 160px) * 0.43);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.casing {
+  position: absolute;
+  top: calc(var(--bz, 40px) * -1);
+  left: calc(var(--bz, 40px) * -1);
+  right: calc(var(--bz, 40px) * -1);
+  bottom: calc(var(--chin, 90px) * -1);
+  background: linear-gradient(180deg, #e8edf8 0%, var(--color-mist) 55%, #cfd7e8 100%);
+  border-radius: calc(var(--bz, 40px) * 0.7);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -10px 18px rgba(85, 115, 115, 0.28),
+    inset 10px 0 18px rgba(85, 115, 115, 0.12),
+    inset -10px 0 18px rgba(85, 115, 115, 0.12),
+    0 40px 80px rgba(13, 13, 13, 0.16),
+    0 6px 0 #b9c4d6;
+}
+
+/* Recessed lip around the glass */
+.recess {
+  position: absolute;
+  inset: calc(var(--bz, 40px) * -0.32);
+  border-radius: calc(var(--bz, 40px) * 0.4);
+  background: linear-gradient(160deg, var(--color-teal), #3f5757);
+  box-shadow:
+    inset 0 2px 6px rgba(13, 13, 13, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.chin {
+  position: absolute;
+  left: var(--bz, 40px);
+  right: var(--bz, 40px);
+  bottom: 0;
+  height: var(--chin, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.vents {
+  display: flex;
+  gap: calc(var(--chin, 90px) * 0.08);
+}
+.vents i {
+  width: calc(var(--chin, 90px) * 0.06);
+  height: calc(var(--chin, 90px) * 0.32);
+  border-radius: 99px;
+  background: rgba(39, 36, 1, 0.55);
+  box-shadow: inset 0 1px 1px rgba(13, 13, 13, 0.5);
+}
+
+.badge {
+  color: var(--color-teal);
+  font-size: calc(var(--chin, 90px) * 0.16);
+  letter-spacing: 0.2em;
+}
+
+.power {
+  display: grid;
+  place-items: center;
+  width: calc(var(--chin, 90px) * 0.36);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-olive);
+  box-shadow:
+    inset 0 -3px 0 rgba(13, 13, 13, 0.5),
+    0 2px 0 rgba(255, 255, 255, 0.7);
+}
+.power i {
+  width: 22%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-mist);
+  opacity: 0.85;
+}
+
+.neck {
+  position: absolute;
+  left: 38%;
+  right: 38%;
+  bottom: calc((var(--chin, 90px) + var(--stand, 60px) * 0.55) * -1);
+  height: calc(var(--stand, 60px) * 0.6);
+  background: linear-gradient(180deg, #c7d0e2, var(--color-mist));
+  box-shadow: inset 0 6px 10px rgba(85, 115, 115, 0.35);
+}
+
+.base {
+  position: absolute;
+  left: 26%;
+  right: 26%;
+  bottom: calc((var(--chin, 90px) + var(--stand, 60px)) * -1);
+  height: calc(var(--stand, 60px) * 0.45);
+  border-radius: calc(var(--stand, 60px) * 0.2) calc(var(--stand, 60px) * 0.2) 6px 6px;
+  background: linear-gradient(180deg, var(--color-mist), #c9d2e4);
+  box-shadow:
+    inset 0 -6px 10px rgba(85, 115, 115, 0.3),
+    0 24px 40px rgba(13, 13, 13, 0.14);
+}
+
+/* Curved-glass glare + faint scanlines; fades out as the camera enters. */
+.glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 45%),
+    repeating-linear-gradient(0deg, rgba(13, 13, 13, 0.05) 0 1px, transparent 1px 3px),
+    radial-gradient(140% 120% at 50% 50%, transparent 60%, rgba(13, 13, 13, 0.28) 100%);
+}
+
+/* ---------- Mini monitor (flat mode) ---------- */
+.mini {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 40px;
+  width: clamp(120px, 22vw, 220px);
+}
+.miniCasing {
+  position: relative;
+  padding: 10% 10% 22%;
+  background: var(--color-mist);
+  border-radius: 12px;
+  box-shadow: inset 0 -6px 10px rgba(85, 115, 115, 0.3);
+}
+.miniScreen {
+  aspect-ratio: 4 / 3;
+  border-radius: 4px;
+  background: url("/assets/desktop/retro-meadow.webp") center / cover;
+  box-shadow: 0 0 0 3px var(--color-teal);
+}
+.miniPower {
+  position: absolute;
+  right: 12%;
+  bottom: 7%;
+  width: 10%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-olive);
+}
+.miniBase {
+  width: 50%;
+  height: 10px;
+  margin: 0 auto;
+  background: var(--color-mist);
+  box-shadow: inset 0 4px 6px rgba(85, 115, 115, 0.35);
+}
+
+@media (max-width: 639px) {
+  .mini {
+    display: none;
+  }
+}
+
+/* ---------- Phone casing ---------- */
+.phone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.phoneCasing {
+  position: absolute;
+  top: calc(var(--bz-top, 60px) * -1);
+  bottom: calc(var(--bz-bottom, 70px) * -1);
+  left: calc(var(--bz, 16px) * -1);
+  right: calc(var(--bz, 16px) * -1);
+  border-radius: calc(var(--bz-top, 60px) * 0.75);
+  background: linear-gradient(160deg, #e8edf8 0%, var(--color-mist) 50%, #c9d2e4 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -8px 16px rgba(85, 115, 115, 0.3),
+    inset 6px 0 12px rgba(85, 115, 115, 0.14),
+    inset -6px 0 12px rgba(85, 115, 115, 0.14),
+    0 30px 60px rgba(13, 13, 13, 0.18),
+    0 0 0 2px var(--color-teal);
+}
+.phoneSpeaker {
+  position: absolute;
+  top: calc(var(--bz-top, 60px) * 0.45);
+  left: 50%;
+  translate: -50% 0;
+  width: 22%;
+  height: calc(var(--bz-top, 60px) * 0.12);
+  border-radius: 99px;
+  background: rgba(39, 36, 1, 0.7);
+}
+.phoneCamera {
+  position: absolute;
+  top: calc(var(--bz-top, 60px) * 0.4);
+  left: 66%;
+  width: calc(var(--bz-top, 60px) * 0.2);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-olive);
+  box-shadow: inset 0 0 0 2px var(--color-teal);
+}
+.phoneHome {
+  position: absolute;
+  bottom: calc(var(--bz-bottom, 70px) * 0.3);
+  left: 50%;
+  translate: -50% 0;
+  width: calc(var(--bz-bottom, 70px) * 0.48);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid var(--color-teal);
+  background: linear-gradient(180deg, var(--color-mist), #c9d2e4);
+}
+.phoneButton {
+  position: absolute;
+  width: calc(var(--bz, 16px) * 0.35);
+  border-radius: 3px;
+  background: var(--color-teal);
+}
+.phoneButtonPower {
+  right: calc(var(--bz, 16px) * -1.3);
+  top: 12%;
+  height: 9%;
+}
+.phoneButtonVolume {
+  left: calc(var(--bz, 16px) * -1.3);
+  top: 18%;
+  height: 16%;
+}

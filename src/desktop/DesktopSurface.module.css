@@ -1,0 +1,292 @@
+.surface {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-mist);
+  font-size: 0.9375rem;
+}
+
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(223, 229, 243, 0.18), rgba(242, 239, 234, 0.12)),
+    url("/assets/desktop/retro-meadow.webp") center 70% / cover no-repeat,
+    var(--color-mist);
+}
+
+.area {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------- Hint ---------- */
+.hint {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-olive);
+  background: var(--color-ivory);
+  border: 1px solid var(--color-olive);
+}
+.hintDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-teal);
+}
+.hintSub {
+  font-weight: 500;
+  color: var(--color-ink);
+}
+
+/* ---------- Icons ---------- */
+.icons {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(auto-fill, 104px);
+  grid-auto-columns: 104px;
+  direction: rtl;
+  gap: 4px 8px;
+  z-index: 0;
+}
+.icons > li {
+  direction: ltr;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  width: 104px;
+  height: 104px;
+  padding: 6px 4px;
+  text-align: center;
+  transition: transform 0.14s ease-out;
+}
+.icon:hover {
+  transform: translateY(-3px);
+}
+.icon:active {
+  transform: scale(0.97);
+  transition-duration: 0.09s;
+}
+.icon:focus-visible {
+  outline: 2px solid var(--color-ivory);
+  outline-offset: -2px;
+  background: rgba(39, 36, 1, 0.35);
+}
+
+.iconArt {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+}
+.svgIcon {
+  width: 46px;
+  height: 46px;
+  filter: drop-shadow(0 2px 3px rgba(13, 13, 13, 0.25));
+}
+.thumb {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border: 3px solid var(--color-ivory);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(13, 13, 13, 0.3);
+}
+
+.iconLabel {
+  max-width: 100%;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-ivory);
+  background: rgba(39, 36, 1, 0.82);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Buddy ---------- */
+.buddy {
+  position: absolute;
+  right: calc(var(--icons-w, 236px) + 16px);
+  bottom: 8px;
+  z-index: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.buddyBtn {
+  width: 104px;
+  min-height: 44px;
+}
+.buddyBtn img {
+  width: 100%;
+  height: auto;
+}
+.bubble {
+  max-width: 220px;
+  padding: 10px 12px;
+  margin-bottom: 64px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  background: var(--color-ivory);
+  color: var(--color-olive);
+  border: 1px solid var(--color-olive);
+  box-shadow: 0 6px 18px rgba(13, 13, 13, 0.14);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  pointer-events: none;
+}
+.bubble[data-show] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Taskbar ---------- */
+.taskbar {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 6px 0 12px;
+  background: var(--color-ivory);
+  border-top: 1px solid rgba(39, 36, 1, 0.22);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+  margin-right: 4px;
+  border-right: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-olive);
+  white-space: nowrap;
+}
+.brand i {
+  width: 10px;
+  height: 10px;
+  background: var(--color-teal);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.tasks {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.task {
+  min-height: 34px;
+  max-width: 180px;
+  padding: 0 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: var(--color-mist);
+  color: var(--color-olive);
+  border: 1px solid transparent;
+}
+.task:hover {
+  border-color: var(--color-teal);
+}
+.taskActive {
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+.taskMin {
+  background: transparent;
+  border: 1px dashed var(--color-teal);
+}
+
+.tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.trayBtn {
+  min-height: 40px;
+  padding: 0 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-olive);
+  white-space: nowrap;
+}
+.trayBtn:hover {
+  background: var(--color-mist);
+}
+.clock {
+  padding: 0 10px;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+/* ---------- Compact (phone) desktop ---------- */
+.compact .icons {
+  position: static;
+  direction: ltr;
+  grid-auto-flow: row;
+  grid-template-rows: none;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  grid-auto-columns: auto;
+  justify-items: center;
+  padding: 16px 12px;
+}
+.compact .area {
+  overflow: auto;
+}
+.compact .hint {
+  position: relative;
+  top: auto;
+  left: auto;
+  margin: 16px 12px 0;
+}
+.compact .brand,
+.compact .clock {
+  display: none;
+}
+.compact .centerBtn {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .windowed .centerBtn {
+    display: none;
+  }
+}

@@ -1,0 +1,73 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  pointer-events: auto;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.layerA,
+.layerB {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(100% 0% 0% 0%);
+}
+.layerA {
+  background: var(--color-teal);
+}
+.layerB {
+  display: grid;
+  place-items: center;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+
+.label {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: var(--gutter);
+  text-align: center;
+}
+.index {
+  color: var(--color-mist);
+  letter-spacing: 0.2em;
+}
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.25em;
+  font-size: clamp(3rem, 1.6rem + 7vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.title :global(.serif) {
+  font-size: 1.08em;
+  letter-spacing: -0.01em;
+}
+.word {
+  display: inline-flex;
+}
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-block: 0.08em 0.14em;
+  margin-block: -0.08em -0.14em;
+}
+.mask > span {
+  display: inline-block;
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--color-mist);
+  transform: scaleX(0);
+  transform-origin: left;
+}

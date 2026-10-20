@@ -1,0 +1,245 @@
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  height: calc(100svh - var(--header-h));
+  margin-top: var(--section-space);
+  padding-block: 28px;
+  scroll-margin-top: var(--header-h);
+}
+
+/* ---------- Left: title, list, active details ---------- */
+.left {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.kicker {
+  color: var(--color-teal);
+}
+
+.title {
+  margin-top: 14px;
+  color: var(--color-olive);
+  font-size: clamp(3rem, 1.6rem + 4vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.title :global(.serif) {
+  display: block;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  margin-top: 14px;
+  max-width: 34ch;
+  font-size: 0.9375rem;
+}
+
+.listWrap {
+  position: relative;
+  margin-top: clamp(20px, 3vh, 40px);
+  padding-left: 18px;
+}
+.progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-strong);
+}
+.progress span {
+  position: absolute;
+  inset: 0;
+  background: var(--color-teal);
+  transform-origin: top;
+}
+
+.list li {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--color-olive);
+  opacity: 0.32;
+  transition: opacity 0.35s var(--ease-out);
+}
+.list li.on {
+  opacity: 1;
+}
+.name {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.5rem, 1rem + 1vw, 2rem);
+  line-height: 1;
+}
+.tags {
+  font-size: 0.6875rem;
+  color: var(--color-teal);
+}
+
+.details {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: clamp(16px, 2.5vh, 32px);
+}
+.detail {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: grid;
+  gap: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition:
+    opacity 0.4s var(--ease-out),
+    transform 0.5s var(--ease-out),
+    visibility 0s linear 0.4s;
+}
+.detail[data-active] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0.08s, 0.08s, 0s;
+}
+
+.summary {
+  max-width: 46ch;
+  color: var(--color-olive);
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.highlights li {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--color-teal);
+  color: var(--color-olive);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.meta {
+  color: var(--color-teal);
+  font-size: 0.6875rem;
+}
+
+/* ---------- Right: stacked slides ---------- */
+.right {
+  position: relative;
+  grid-column: 6 / span 7;
+  min-height: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-mist);
+  transform-origin: 50% 100%;
+}
+.shot {
+  position: absolute;
+  left: 7%;
+  right: 16%;
+  top: 9%;
+  width: 77%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 30px 60px rgba(13, 13, 13, 0.18);
+}
+.phone {
+  position: absolute;
+  right: 6%;
+  bottom: 8%;
+  width: clamp(110px, 11vw, 190px);
+  aspect-ratio: 430 / 932;
+  object-fit: cover;
+  object-position: top;
+  border: 6px solid var(--color-ink);
+  border-radius: 20px;
+  box-shadow: 0 24px 40px rgba(13, 13, 13, 0.22);
+}
+.slideLabel {
+  position: absolute;
+  right: 6%;
+  top: 4%;
+  color: var(--color-olive);
+}
+
+/* Rotating circular badge */
+.badge {
+  position: absolute;
+  z-index: 3;
+  left: 4%;
+  bottom: 5%;
+  width: 124px;
+  height: 124px;
+  display: grid;
+  place-items: center;
+  color: var(--color-olive);
+}
+.badge > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spin 14s linear infinite;
+}
+.badge text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  fill: currentColor;
+}
+.badgeCore {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+  transition: transform 0.3s var(--ease-out);
+}
+.badgeCore svg {
+  width: 20px;
+  height: 20px;
+}
+.badge:hover .badgeCore {
+  transform: scale(1.12) rotate(45deg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-height: 760px) {
+  .intro,
+  .meta {
+    display: none;
+  }
+}

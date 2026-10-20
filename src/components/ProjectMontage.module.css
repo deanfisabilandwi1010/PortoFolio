@@ -1,0 +1,105 @@
+.montage {
+  position: relative;
+}
+
+.stage {
+  padding-inline: var(--gutter);
+}
+
+.frame {
+  width: 100%;
+  background: var(--color-mist);
+  padding: clamp(10px, 1.2vw, 18px);
+  transform-origin: 50% 0%;
+}
+
+.screens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px, 1.2vw, 18px);
+}
+
+.screen {
+  display: block;
+  background: var(--color-ivory);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.screen img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s var(--ease-out);
+}
+.screen:hover img {
+  transform: scale(1.015);
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding-inline: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.chrome i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-teal);
+  opacity: 0.55;
+}
+.chrome i:first-child {
+  background: var(--color-olive);
+  opacity: 1;
+}
+
+.url {
+  margin-left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--color-olive);
+}
+
+.caption {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding-top: 12px;
+  color: var(--color-olive);
+}
+
+.client {
+  color: var(--color-teal);
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .montage {
+    height: 150svh;
+  }
+  /* The stage is only as tall as the frame, so nothing empty is left behind
+     when the sticky scene releases and About follows straight after. */
+  .stage {
+    position: sticky;
+    top: var(--header-h);
+    padding-top: 16px;
+  }
+  .frame {
+    /* full-size frame fits the viewport; scroll scales it up to this */
+    width: min(94%, calc((100svh - var(--header-h) - 48px) * 1.62));
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .screens,
+  .caption {
+    grid-template-columns: 1fr;
+  }
+  .caption {
+    display: none;
+  }
+}
