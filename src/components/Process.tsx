@@ -78,10 +78,15 @@ export function Process() {
         if (!stage || !grid || !wheel) return;
         const n = cards.length;
         const roll = { p: 0 };
+        // The wheel rides inside the visible card area: from just inside the first card's
+        // left edge to just inside the right edge of the screen (never in the gutter).
         const placeWheel = () => {
           const size = wheel.offsetWidth;
-          const x = roll.p * (stage.offsetWidth - size);
-          const turn = x / (size / 2);
+          const pad = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
+          const start = pad + 18;
+          const end = stage.offsetWidth - pad - size - 18;
+          const x = start + roll.p * (end - start);
+          const turn = (x - start) / (size / 2);
           const bump = (size / 2) * 0.134 * (1 - roll.p) * Math.abs(Math.sin(turn * 3));
           gsap.set(wheel, { x, y: -bump, rotate: (turn * 180) / Math.PI });
         };
@@ -98,7 +103,9 @@ export function Process() {
             invalidateOnRefresh: true,
           },
         });
-        tl.to(grid, { x: travel, duration: 1 }, 0)
+        // It only appears once the row has locked in place: pops in, then starts rolling.
+        tl.fromTo(wheel, { autoAlpha: 0, scale: 0.3 }, { autoAlpha: 1, scale: 1, duration: 0.06, ease: "back.out(2)" }, 0)
+          .to(grid, { x: travel, duration: 1 }, 0)
           .to(roll, { p: 1, duration: 1, onUpdate: placeWheel }, 0)
           .to(q("[data-wheel-shape]"), { morphSVG: CIRCLE, duration: 0.95 }, 0);
         cards.forEach((card, i) => {

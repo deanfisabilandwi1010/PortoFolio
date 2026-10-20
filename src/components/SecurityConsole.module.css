@@ -1,0 +1,215 @@
+.console {
+  position: relative;
+  border: 1px solid rgba(223, 229, 243, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #171501;
+  box-shadow:
+    0 0 0 4px rgba(223, 229, 243, 0.06),
+    0 24px 48px rgba(13, 13, 13, 0.35);
+  font-family: var(--font-mono);
+}
+
+/* CRT texture: scanlines + a soft glow from the centre */
+.console::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(223, 229, 243, 0.035) 0 1px, transparent 1px 3px),
+    radial-gradient(120% 90% at 50% 40%, rgba(223, 229, 243, 0.06), transparent 70%);
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--color-mist);
+  color: var(--color-olive);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.controls i {
+  display: block;
+  width: 9px;
+  height: 9px;
+}
+.dot {
+  border-radius: 50%;
+  background: var(--color-olive);
+}
+.square {
+  border: 1.5px solid var(--color-teal);
+}
+.diamond {
+  background: var(--color-teal);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.6875rem;
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.625rem;
+}
+.live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-teal);
+}
+.live[data-on] i {
+  animation: blink 1.2s steps(2, start) infinite;
+}
+
+.body {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 16px 16px 18px;
+  color: var(--color-mist);
+  font-size: 0.75rem;
+}
+.cmd {
+  color: rgba(223, 229, 243, 0.7);
+}
+.prompt {
+  color: var(--color-ivory);
+  font-weight: 700;
+}
+
+.steps {
+  display: grid;
+  gap: 2px;
+  border-block: 1px dashed rgba(223, 229, 243, 0.22);
+  padding-block: 8px;
+}
+
+.step {
+  --p: 0;
+  display: grid;
+  grid-template-columns: 22px 64px 1fr 66px;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: rgba(223, 229, 243, 0.55);
+  text-align: left;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+.step:hover,
+.step[data-active] {
+  background: rgba(223, 229, 243, 0.08);
+  color: var(--color-ivory);
+}
+.step:focus-visible {
+  outline: 1.5px solid var(--color-ivory);
+  outline-offset: -1.5px;
+}
+.num {
+  opacity: 0.6;
+}
+.key {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Segmented progress bar */
+.bar {
+  position: relative;
+  height: 10px;
+  background: rgba(223, 229, 243, 0.12);
+  -webkit-mask-image: repeating-linear-gradient(90deg, #000 0 8px, transparent 8px 10px);
+  mask-image: repeating-linear-gradient(90deg, #000 0 8px, transparent 8px 10px);
+}
+.barFill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-mist);
+  transform: scaleX(var(--p));
+  transform-origin: left;
+}
+.step[data-status="done"] .barFill {
+  background: var(--color-teal);
+  filter: brightness(1.5);
+}
+
+.status {
+  justify-self: end;
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.step[data-status="running"] .status {
+  background: var(--color-mist);
+  border-color: var(--color-mist);
+  color: var(--color-olive);
+  animation: blink 1s steps(2, start) infinite;
+}
+.step[data-status="done"] .status {
+  color: var(--color-mist);
+}
+.step[data-status="queued"] .status {
+  opacity: 0.6;
+}
+
+.detail {
+  min-height: 3em;
+  color: var(--color-ivory);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--color-mist);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 479px) {
+  .step {
+    grid-template-columns: 20px 56px 1fr;
+  }
+  .status {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret,
+  .live i,
+  .step[data-status="running"] .status {
+    animation: none;
+  }
+}

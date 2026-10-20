@@ -6,15 +6,18 @@ import { useReveal } from "../motion/useReveal";
 import { ArrowUpRight, GithubMark, Plus } from "./Icons";
 import { useMotion } from "../app/MotionProvider";
 import { WorkShowcase } from "./WorkShowcase";
+import { WorkStack } from "./WorkStack";
 import styles from "./SelectedWork.module.css";
 
 /**
  * Desktop with motion: a pinned showcase (list + wiping images).
- * Phones and reduced motion: two large editorial blocks in normal flow.
+ * Phones & tablets: stacking cards with a Desktop / Phone preview switch.
+ * Reduced motion: two large editorial blocks in normal flow.
  */
 export function SelectedWork() {
-  const { scenes } = useMotion();
-  return scenes ? <WorkShowcase /> : <WorkEditorial />;
+  const { scenes, reduced } = useMotion();
+  if (scenes) return <WorkShowcase />;
+  return reduced ? <WorkEditorial /> : <WorkStack />;
 }
 
 function WorkEditorial() {

@@ -1,20 +1,19 @@
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { dutyAreas, profile } from "../data/portfolio";
 import { useReveal } from "../motion/useReveal";
 import { ScrubWords } from "./ScrubWords";
 import { AppTiles } from "./AppTiles";
+import { SecurityConsole } from "./SecurityConsole";
 import { gsap, useGSAP } from "../motion/gsap";
 import { MM } from "../motion/useMotionPreference";
 import styles from "./DayJob.module.css";
 
-const LOOP = ["Detect", "Triage", "Fix", "Verify"];
 const PIPELINE = ["Request", "Build", "Deploy", "Support"];
 const idx = (i: number) => ({ "--i": i }) as CSSProperties;
 
 /** What Dean does at PLN Nusa Daya, beyond the personal projects. */
 export function DayJob() {
   const root = useRef<HTMLElement>(null);
-  const radar = useRef<HTMLDivElement>(null);
   useReveal(root);
 
   // The mist panel opens from an inset card to full bleed as it scrolls in.
@@ -45,14 +44,6 @@ export function DayJob() {
     { scope: root },
   );
 
-  // The sweep is a CSS loop: run it only while it is on screen.
-  useEffect(() => {
-    const el = radar.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => el.toggleAttribute("data-running", entry.isIntersecting));
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   const [apps, security] = dutyAreas;
 
@@ -122,24 +113,7 @@ export function DayJob() {
               {security.title} <span className="serif">{security.italic}</span>
             </h3>
             <p className={styles.summary}>{security.summary}</p>
-            <div className={styles.loopWrap}>
-              <div ref={radar} className={styles.radar} aria-hidden>
-                <span className={styles.ring} />
-                <span className={styles.ring} />
-                <span className={styles.ring} />
-                <span className={styles.sweep} />
-                {LOOP.map((step, i) => (
-                  <span key={step} className={styles.node} data-n={i}>
-                    <b>{String(i + 1).padStart(2, "0")}</b> {step}
-                  </span>
-                ))}
-              </div>
-              <ol className={styles.points}>
-                {security.points.map((pt) => (
-                  <li key={pt}>{pt}</li>
-                ))}
-              </ol>
-            </div>
+            <SecurityConsole />
             <ul className={styles.tags} aria-label="Focus areas">
               {security.tags.map((t) => (
                 <li key={t}>{t}</li>

@@ -215,9 +215,10 @@ export type StackItem = {
   symbol: string;
   name: string;
   category: StackCategory;
-  /** Where it was actually used — every entry is backed by a repo or the day job. */
-  usedIn: string[];
-  note: string;
+  /** What kind of tool it is, in two or three words. */
+  role: string;
+  /** What it does, in plain language. */
+  does: string;
 };
 
 export const stackCategories: { id: StackCategory; label: string }[] = [
@@ -229,25 +230,25 @@ export const stackCategories: { id: StackCategory; label: string }[] = [
 ];
 
 export const stack: StackItem[] = [
-  { symbol: "Ts", name: "TypeScript", category: "frontend", usedIn: ["Kalili", "Tooday", "This site"], note: "Typed from the UI down to the data layer." },
-  { symbol: "Re", name: "React", category: "frontend", usedIn: ["Kalili", "Tooday", "This site"], note: "Component-driven interfaces with real state." },
-  { symbol: "Nx", name: "Next.js", category: "frontend", usedIn: ["Kalili", "Tooday"], note: "App Router sites with server-rendered pages." },
-  { symbol: "Tw", name: "Tailwind CSS", category: "frontend", usedIn: ["Tooday"], note: "Utility-first styling for a fast-moving brand." },
-  { symbol: "Zu", name: "Zustand", category: "frontend", usedIn: ["Tooday", "This site"], note: "Small, predictable stores — like this site's window manager." },
-  { symbol: "Zd", name: "Zod", category: "frontend", usedIn: ["Tooday"], note: "Validated order data before it ever hits the database." },
-  { symbol: "Gs", name: "GSAP", category: "motion", usedIn: ["Kalili", "Tooday", "This site"], note: "Scroll scenes, pins, morphs and every timeline here." },
-  { symbol: "Th", name: "Three.js", category: "motion", usedIn: ["Kalili"], note: "The rotatable 3D dumpling cross-section." },
-  { symbol: "Ln", name: "Lenis", category: "motion", usedIn: ["Tooday", "This site"], note: "Smooth scroll wired into one animation clock." },
-  { symbol: "Lv", name: "Laravel", category: "backend", usedIn: ["E-Arsip", "Internal apps"], note: "Laravel 12 behind PLN Nusa Daya's internal tools." },
-  { symbol: "Ph", name: "PHP", category: "backend", usedIn: ["E-Arsip", "Internal apps"], note: "Server-side logic for the company's day-to-day systems." },
-  { symbol: "Sb", name: "Supabase", category: "backend", usedIn: ["Tooday"], note: "Auth and data for the in-store order flow." },
-  { symbol: "Pg", name: "PostgreSQL", category: "backend", usedIn: ["Tooday"], note: "Migrations and SQL functions for orders." },
-  { symbol: "Vi", name: "Vite", category: "delivery", usedIn: ["This site"], note: "Fast builds and lazy-loaded chunks." },
-  { symbol: "Pw", name: "Playwright", category: "delivery", usedIn: ["This site"], note: "End-to-end tests on Chromium, WebKit and mobile." },
-  { symbol: "Vt", name: "Vitest", category: "delivery", usedIn: ["Tooday", "This site"], note: "Unit tests for the logic that must not break." },
-  { symbol: "Gh", name: "Git & GitHub", category: "delivery", usedIn: ["Every project"], note: "Versioned, reviewable, shipped from a repo." },
-  { symbol: "Vc", name: "Vercel", category: "delivery", usedIn: ["Tooday"], note: "Production hosting for Tooday." },
-  { symbol: "Nf", name: "Netlify", category: "delivery", usedIn: ["Kalili"], note: "Production hosting for Kalili Steam Club." },
-  { symbol: "Sc", name: "SecurityScorecard", category: "security", usedIn: ["PLN Nusa Daya"], note: "Triage and remediation of public web findings." },
-  { symbol: "Tl", name: "TLS & headers", category: "security", usedIn: ["PLN Nusa Daya"], note: "Hardening configuration on public-facing assets." },
+  { symbol: "Ts", name: "TypeScript", category: "frontend", role: "Language", does: "JavaScript with types. Catches mistakes before the code runs and keeps large codebases safe to change." },
+  { symbol: "Re", name: "React", category: "frontend", role: "UI library", does: "Builds interfaces from reusable components that update themselves whenever the data changes." },
+  { symbol: "Nx", name: "Next.js", category: "frontend", role: "React framework", does: "Adds routing, server rendering and image optimisation on top of React — fast pages that search engines can read." },
+  { symbol: "Tw", name: "Tailwind CSS", category: "frontend", role: "Styling", does: "Utility classes written right in the markup, so a design system stays consistent without ever-growing CSS files." },
+  { symbol: "Zu", name: "Zustand", category: "frontend", role: "State management", does: "A tiny store for app-wide state: shared data between components without the ceremony of bigger libraries." },
+  { symbol: "Zd", name: "Zod", category: "frontend", role: "Validation", does: "Describes the exact shape data must have and rejects anything else — on the client and on the server." },
+  { symbol: "Gs", name: "GSAP", category: "motion", role: "Animation engine", does: "Timeline-based animation: scroll-driven scenes, pinning, morphing and precisely tuned easing." },
+  { symbol: "Th", name: "Three.js", category: "motion", role: "3D graphics", does: "Renders real-time 3D in the browser with WebGL — models, lighting and interaction." },
+  { symbol: "Ln", name: "Lenis", category: "motion", role: "Smooth scroll", does: "Smooths native scrolling and keeps it perfectly in sync with scroll-driven animation." },
+  { symbol: "Lv", name: "Laravel", category: "backend", role: "PHP framework", does: "Routing, authentication, database access and queues out of the box — the backbone of business applications." },
+  { symbol: "Ph", name: "PHP", category: "backend", role: "Server language", does: "Runs the server-side logic behind web applications: requests, rules and data." },
+  { symbol: "Sb", name: "Supabase", category: "backend", role: "Backend platform", does: "A hosted Postgres database with authentication, storage and APIs ready to use." },
+  { symbol: "Pg", name: "PostgreSQL", category: "backend", role: "Database", does: "A relational database for structured data, with transactions that keep every record consistent." },
+  { symbol: "Vi", name: "Vite", category: "delivery", role: "Build tool", does: "An instant dev server and optimised production builds, split into small files that load only when needed." },
+  { symbol: "Pw", name: "Playwright", category: "delivery", role: "End-to-end testing", does: "Drives real browsers to test whole user journeys — clicks, keyboard and mobile included." },
+  { symbol: "Vt", name: "Vitest", category: "delivery", role: "Unit testing", does: "Fast tests for individual functions and logic, run on every change." },
+  { symbol: "Gh", name: "Git & GitHub", category: "delivery", role: "Version control", does: "Tracks every change, makes code review possible and keeps a safe history to roll back to." },
+  { symbol: "Vc", name: "Vercel", category: "delivery", role: "Hosting", does: "Deploys a site straight from its repository, with a preview link for every change." },
+  { symbol: "Nf", name: "Netlify", category: "delivery", role: "Hosting", does: "Builds and serves sites from a global CDN, automatically on every push." },
+  { symbol: "Sc", name: "SecurityScorecard", category: "security", role: "Security rating", does: "Rates an organisation's public-facing security posture and lists the findings that need fixing." },
+  { symbol: "Tl", name: "TLS & headers", category: "security", role: "Web hardening", does: "Encrypted connections plus browser security headers that block attacks like clickjacking and protocol downgrades." },
 ];

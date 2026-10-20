@@ -172,87 +172,6 @@
   border-radius: 50%;
 }
 
-/* File B: detect → triage → fix → verify loop */
-.loopWrap {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 36px;
-  align-items: center;
-  padding-block: 20px;
-}
-
-.radar {
-  position: relative;
-  width: 200px;
-  aspect-ratio: 1;
-  margin-inline: 20px;
-}
-
-.ring {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(223, 229, 243, 0.28);
-  border-radius: 50%;
-}
-.ring:nth-child(2) {
-  inset: 18%;
-}
-.ring:nth-child(3) {
-  inset: 36%;
-  background: rgba(85, 115, 115, 0.45);
-}
-
-.sweep {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(223, 229, 243, 0.34), rgba(223, 229, 243, 0) 24%);
-  animation: sweep 6s linear infinite;
-  animation-play-state: paused;
-}
-.radar[data-running] .sweep {
-  animation-play-state: running;
-}
-
-@keyframes sweep {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-.node {
-  position: absolute;
-  padding: 4px 8px;
-  background: var(--color-olive);
-  border: 1px solid var(--color-mist);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  white-space: nowrap;
-  translate: -50% -50%;
-}
-.node[data-n="0"] {
-  left: 50%;
-  top: 0;
-}
-.node[data-n="1"] {
-  left: 100%;
-  top: 50%;
-}
-.node[data-n="2"] {
-  left: 50%;
-  top: 100%;
-}
-.node[data-n="3"] {
-  left: 0;
-  top: 50%;
-}
-.node b {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  color: var(--color-mist);
-  margin-right: 2px;
-}
-
 @media (max-width: 1023px) {
   .head > :global(.section-title),
   .intro {
@@ -267,14 +186,4 @@
 }
 
 @media (max-width: 639px) {
-  .loopWrap {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-  .loopWrap .points {
-    justify-self: stretch;
-  }
-  .radar {
-    margin: 20px 30px;
-  }
 }

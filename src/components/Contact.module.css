@@ -11,13 +11,33 @@
   gap: 18px;
   text-align: center;
 }
-
 .kicker {
   color: var(--color-teal);
 }
-
 .sub {
   max-width: 40ch;
+}
+
+/* Hand-drawn underline under the italic line */
+.titleWrap {
+  position: relative;
+}
+.scribble {
+  position: absolute;
+  left: 18%;
+  right: 14%;
+  bottom: -0.25em;
+  width: 68%;
+  height: 0.5em;
+  overflow: visible;
+  pointer-events: none;
+}
+.scribble path {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
 
 /* Dashed rail the CTA travels along */
@@ -50,18 +70,19 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: clamp(220px, 22vw, 320px);
+  width: clamp(240px, 22vw, 320px);
   aspect-ratio: 1;
   color: var(--color-ivory);
 }
-
 .inner {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
+  transition: scale 0.3s var(--ease-out);
 }
 
+/* Entrance shape (diamond → arch), replaced by the door once it lands */
 .shape {
   position: absolute;
   inset: 0;
@@ -71,32 +92,211 @@
 }
 .shape path {
   fill: var(--color-olive);
-  transition: fill 0.22s var(--ease-out);
 }
-.cta:hover .shape path,
-.cta:focus-visible .shape path {
-  fill: var(--color-ink);
+
+/* The door */
+.door {
+  position: absolute;
+  inset: 2%;
+  perspective: 900px;
+  visibility: hidden;
 }
-.inner {
-  transition: scale 0.22s var(--ease-out);
+.interior {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 18% 10% 10%;
+  border-radius: 50% 50% 0 0 / 50% 50% 0 0;
+  background: var(--color-mist);
+  border: 1.5px solid var(--color-olive);
+  color: var(--color-olive);
+  text-align: center;
 }
-.cta:hover .inner {
-  scale: 1.03;
+.interior :global(.label-mono) {
+  color: var(--color-teal);
+}
+.mail {
+  font-size: clamp(1rem, 0.75rem + 0.6vw, 1.25rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.enter svg {
+  width: 12px;
+  height: 12px;
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: var(--color-olive);
+  transition:
+    transform 0.9s cubic-bezier(0.65, 0, 0.25, 1),
+    background-color 0.3s ease;
+  backface-visibility: hidden;
+}
+/* inset panel line on each leaf */
+.leaf::before {
+  content: "";
+  position: absolute;
+  inset: 14% 14% 10%;
+  border: 1px solid rgba(223, 229, 243, 0.22);
+}
+.leafL {
+  left: 0;
+  border-radius: 100% 0 0 0 / 50% 0 0 0;
+  transform-origin: 0% 50%;
+  box-shadow: inset -1px 0 0 rgba(223, 229, 243, 0.25);
+}
+.leafL::before {
+  border-radius: 100% 0 0 0 / 50% 0 0 0;
+  right: 10%;
+}
+.leafR {
+  right: 0;
+  border-radius: 0 100% 0 0 / 0 50% 0 0;
+  transform-origin: 100% 50%;
+}
+.leafR::before {
+  border-radius: 0 100% 0 0 / 0 50% 0 0;
+  left: 10%;
+}
+.knob {
+  position: absolute;
+  top: 76%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-mist);
+}
+.leafL .knob {
+  right: 9%;
+}
+.leafR .knob {
+  left: 9%;
 }
 
 .ctaLabel {
-  position: relative;
-  margin-top: 12%;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding-top: 14%;
   font-family: var(--font-serif);
   font-style: italic;
   font-size: clamp(1.625rem, 1.1rem + 1.3vw, 2.375rem);
   line-height: 1.05;
   text-align: center;
+  color: var(--color-ivory);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
-.ctaLabel svg {
-  display: inline-block;
-  width: 0.6em;
-  height: 0.6em;
-  margin-left: 6px;
-  vertical-align: 0.05em;
+
+/* Open: hover / keyboard focus on desktop, scroll position on touch */
+.cta:hover .leafL,
+.cta:focus-visible .leafL,
+.cta[data-open] .leafL {
+  transform: rotateY(-72deg);
+}
+.cta:hover .leafR,
+.cta:focus-visible .leafR,
+.cta[data-open] .leafR {
+  transform: rotateY(72deg);
+}
+.cta:hover .ctaLabel,
+.cta:focus-visible .ctaLabel,
+.cta[data-open] .ctaLabel {
+  opacity: 0;
+}
+.cta:hover .inner {
+  scale: 1.03;
+}
+
+/* Contact rows */
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 var(--col-gap);
+  margin-top: clamp(48px, 6vw, 88px);
+}
+.linkRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-olive);
+}
+.linkLabel {
+  grid-column: 1 / -1;
+  color: var(--color-teal);
+}
+.linkValue {
+  min-width: 0;
+  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
+  font-weight: 600;
+  color: var(--color-olive);
+  overflow-wrap: anywhere;
+}
+.linkArrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-olive);
+  transition: transform 0.4s var(--ease-out);
+}
+.linkRow:hover .linkArrow {
+  transform: translate(3px, -3px) rotate(45deg);
+}
+.copy {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--color-olive);
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-olive);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+.copy:hover {
+  background: var(--color-mist);
+}
+.copy[data-copied] {
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+
+@media (max-width: 767px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .door {
+    visibility: visible;
+  }
+  .shape {
+    display: none;
+  }
+  .leaf {
+    transition: none;
+  }
 }

@@ -70,7 +70,11 @@ test.describe("intro & page", () => {
     test.skip(!isMobile, "disclosure is the phone / reduced-motion layout");
     await page.goto("/#work");
     // Content reveals as it scrolls into view, the way a visitor reaches it.
-    await page.locator("#project-kalili button").evaluate((el) => el.scrollIntoView({ block: "center" }));
+    // Scroll the way a visitor would: bring the card's bottom into view, before the next card covers it.
+    await page.locator("#project-kalili").evaluate((el: HTMLElement) =>
+      window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY + el.offsetHeight - window.innerHeight + 40),
+    );
+    await page.waitForTimeout(400);
     const btn = page.locator("#project-kalili").getByRole("button", { name: "Project details" });
     await btn.click();
     await expect(page.locator("#project-kalili").getByText("Rotatable 3D dumpling cross-section")).toBeVisible();
@@ -116,10 +120,35 @@ test.describe("tech stack", () => {
     else await three.hover();
     const panel = page.locator("#stack aside");
     await expect(panel).toContainText("Three.js");
-    await expect(panel).toContainText("Kalili");
+    await expect(panel).toContainText("3D graphics");
+    await expect(panel).toContainText("WebGL");
     await page.locator('[role="toolbar"] button[data-cat="backend"]').click();
     await expect(page.locator('[data-cell][aria-label^="Laravel"]')).not.toHaveAttribute("data-dim", "true");
     await expect(page.locator('[data-cell][aria-label^="React"]')).toHaveAttribute("data-dim", "true");
+  });
+});
+
+test.describe("security console & mobile work", () => {
+  test("pointing at a console step selects it and types its detail", async ({ page, isMobile }) => {
+    await page.goto("/#day-job");
+    // Located by attribute: the card may still be hidden by its scroll reveal until scrolled to.
+    const step = page.locator('button[aria-label^="FIX:"]');
+    await step.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    if (isMobile) await step.tap();
+    else await step.hover();
+    await expect(step).toHaveAttribute("aria-current", "step");
+    await expect(page.locator("[aria-live='polite']").filter({ hasText: "Remediate" })).toContainText("security headers");
+  });
+
+  test("phone: the project preview flips between desktop and phone", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "stacking cards are the phone/tablet layout");
+    await page.goto("/#work");
+    const card = page.locator("#project-kalili");
+    const phoneBtn = card.getByRole("button", { name: "Phone" });
+    await phoneBtn.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    await phoneBtn.tap();
+    await expect(phoneBtn).toHaveAttribute("aria-pressed", "true");
+    await expect(card.getByRole("img", { name: /on a phone/ })).toBeVisible();
   });
 });
 

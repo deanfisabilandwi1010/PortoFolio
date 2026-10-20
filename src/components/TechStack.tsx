@@ -3,7 +3,18 @@ import { gsap, useGSAP } from "../motion/gsap";
 import { MM } from "../motion/useMotionPreference";
 import { stack, stackCategories, type StackCategory, type StackItem } from "../data/portfolio";
 import { useReveal } from "../motion/useReveal";
+import { stackIcons } from "../data/stackIcons";
 import styles from "./TechStack.module.css";
+
+function Logo({ name, className }: { name: string; className?: string }) {
+  const path = stackIcons[name];
+  if (!path) return null;
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden>
+      <path d={path} />
+    </svg>
+  );
+}
 
 type Filter = StackCategory | "all";
 
@@ -68,7 +79,7 @@ export function TechStack() {
           </span>
         </h2>
         <p className={styles.note} data-reveal>
-          No skill bars. Every element below links to something real — a live site, an internal system, or this page itself.
+          The tools I reach for, and what each one is actually for. Point at an element to read its job.
         </p>
       </div>
 
@@ -111,7 +122,10 @@ export function TechStack() {
                   onClick={() => setActive(item)}
                 >
                   <span className={`${styles.num} label-mono`}>{String(i + 1).padStart(2, "0")}</span>
-                  <span className={styles.symbol}>{item.symbol}</span>
+                  <span className={styles.face} data-has-logo={!!stackIcons[item.name] || undefined}>
+                    <span className={styles.symbol}>{item.symbol}</span>
+                    <Logo name={item.name} className={styles.logo} />
+                  </span>
                   <span className={styles.name}>{item.name}</span>
                 </button>
               </li>
@@ -124,7 +138,7 @@ export function TechStack() {
             <>
               <div className={styles.panelTop}>
                 <span className={styles.bigSymbol} data-cat={active.category} data-roll>
-                  {active.symbol}
+                  {stackIcons[active.name] ? <Logo name={active.name} className={styles.bigLogo} /> : active.symbol}
                 </span>
                 <span className={`${styles.panelCat} label-mono`} data-roll>
                   {categoryLabel(active.category)}
@@ -133,17 +147,15 @@ export function TechStack() {
               <h3 className={styles.panelName} data-roll>
                 {active.name}
               </h3>
-              <p className={styles.panelNote} data-roll>
-                {active.note}
+              <p className={styles.role} data-roll>
+                {active.role}
               </p>
               <p className={`${styles.usedLabel} label-mono`} data-roll>
-                Used in
+                What it does
               </p>
-              <ul className={styles.used} data-roll>
-                {active.usedIn.map((u) => (
-                  <li key={u}>{u}</li>
-                ))}
-              </ul>
+              <p className={styles.panelNote} data-roll>
+                {active.does}
+              </p>
             </>
           ) : (
             <>
@@ -168,7 +180,7 @@ export function TechStack() {
                 ))}
               </ul>
               <p className={`${styles.hint} label-mono`} data-roll>
-                Point at an element to see where I used it
+                Point at an element to see what it does
               </p>
             </>
           )}
