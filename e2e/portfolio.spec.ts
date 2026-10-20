@@ -50,10 +50,12 @@ test.describe("intro & page", () => {
     await expect(page.locator('#project-tooday a[href="https://toodaycafee.vercel.app/"]').first()).toBeAttached();
     await expect(page.locator('#project-kalili a[href="https://github.com/deanfisabilandwi1010/kaliliDimsum"]')).toHaveCount(1);
     await expect(page.locator('#project-tooday a[href="https://github.com/deanfisabilandwi1010/t00day"]')).toHaveCount(1);
+    await expect(page.locator('#project-dompetqu a[href="https://dompetqu-personal.vercel.app/"]').first()).toBeAttached();
+    await expect(page.locator('#project-dompetqu a[href="https://github.com/deanfisabilandwi1010/DompDigital"]')).toHaveCount(1);
     expect(await page.locator('a[href="#"], a[href=""], a:not([href])').count()).toBe(0);
   });
 
-  test("desktop: the pinned showcase flips from Kalili to Tooday while scrolling", async ({ page, isMobile }) => {
+  test("desktop: the pinned showcase flips through to the last project while scrolling", async ({ page, isMobile }) => {
     test.skip(!!isMobile, "showcase is the desktop layout");
     await page.goto("/#work");
     await expect(page.locator("#project-kalili")).toHaveAttribute("data-active", "true");
@@ -62,8 +64,8 @@ test.describe("intro & page", () => {
       return { top: spacer.getBoundingClientRect().top + window.scrollY, h: spacer.offsetHeight };
     });
     await page.evaluate((y) => window.scrollTo(0, y), pin.top + pin.h - page.viewportSize()!.height);
-    await expect(page.locator("#project-tooday")).toHaveAttribute("data-active", "true");
-    await expect(page.locator("#project-tooday").getByRole("link", { name: /Live website/ })).toBeVisible();
+    await expect(page.locator("#project-dompetqu")).toHaveAttribute("data-active", "true");
+    await expect(page.locator("#project-dompetqu").getByRole("link", { name: /Live website/ })).toBeVisible();
   });
 
   test("project details disclosure toggles", async ({ page, isMobile }) => {

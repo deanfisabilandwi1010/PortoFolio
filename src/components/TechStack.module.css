@@ -108,7 +108,7 @@
 .table {
   grid-column: 1 / span 8;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 8px;
 }
 .slot {
@@ -175,7 +175,7 @@
   width: 1.05em;
   height: 1.05em;
   fill: currentColor;
-  transform: translateY(110%);
+  transform: translateY(140%);
 }
 .face[data-has-logo] .symbol {
   display: block;
@@ -183,7 +183,7 @@
 .cell:hover .face[data-has-logo] > *,
 .cell[data-active] .face[data-has-logo] > *,
 .cell:focus-visible .face[data-has-logo] > * {
-  transform: translateY(-110%);
+  transform: translateY(-140%);
 }
 .cell:hover .face[data-has-logo] .logo,
 .cell[data-active] .face[data-has-logo] .logo,
@@ -326,7 +326,7 @@
     min-height: 0;
   }
   .table {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 

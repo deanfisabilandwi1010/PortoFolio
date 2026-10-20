@@ -15,7 +15,7 @@
 
 .screens {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr));
   gap: clamp(10px, 1.2vw, 18px);
 }
 
@@ -66,7 +66,7 @@
 
 .caption {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr));
   gap: 18px;
   padding-top: 12px;
   color: var(--color-olive);
@@ -89,7 +89,7 @@
   }
   .frame {
     /* full-size frame fits the viewport; scroll scales it up to this */
-    width: min(94%, calc((100svh - var(--header-h) - 48px) * 1.62));
+    width: min(94%, calc((100svh - var(--header-h) - 48px) * (0.62 + var(--n, 2) * 0.5)));
     margin-inline: auto;
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { gsap, useGSAP } from "../motion/gsap";
 import { MM } from "../motion/useMotionPreference";
 import { projects } from "../data/portfolio";
@@ -52,7 +52,7 @@ export function ProjectMontage({ play }: { play: boolean }) {
   return (
     <section ref={root} className={styles.montage} aria-label="Project preview">
       <div className={styles.stage} data-montage-stage>
-        <div className={styles.frame} data-montage-frame>
+        <div className={styles.frame} data-montage-frame style={{ "--n": projects.length } as CSSProperties}>
           <div className={styles.screens}>
             {projects.map((p) => (
               <a key={p.id} href="#work" className={styles.screen}>
@@ -65,7 +65,7 @@ export function ProjectMontage({ play }: { play: boolean }) {
                 <img
                   src={p.preview}
                   srcSet={`${p.previewSmall} 800w, ${p.preview} 1600w`}
-                  sizes="(min-width: 1024px) 46vw, 92vw"
+                  sizes="(min-width: 1024px) 31vw, 92vw"
                   width={1600}
                   height={1000}
                   alt={p.previewAlt}

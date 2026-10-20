@@ -90,7 +90,7 @@ export function WorkStack() {
           </span>
         </h2>
         <p className={styles.intro} data-reveal>
-          Two live websites — designed, built and shipped. Flip each preview between desktop and phone.
+          {projects.length === 2 ? "Two" : projects.length === 3 ? "Three" : projects.length} live projects — designed, built and shipped. Flip each preview between desktop and phone.
         </p>
       </div>
       <div className={styles.cards}>

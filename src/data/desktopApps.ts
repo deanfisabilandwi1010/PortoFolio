@@ -26,7 +26,7 @@ export const desktopApps: DesktopApp[] = [
     file: "Projects",
     title: "Projects",
     kind: "folder",
-    layout: (b) => ({ x: 24, y: b.height - 400 - 24, width: Math.min(560, usable(b) - 48), height: 400 }),
+    layout: (b) => ({ x: 24, y: b.height - 500 - 24, width: Math.min(560, usable(b) - 48), height: 500 }),
   },
   {
     id: "about",

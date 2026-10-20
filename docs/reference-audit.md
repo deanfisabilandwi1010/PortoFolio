@@ -10,6 +10,7 @@ Ditinjau lewat halaman publik. Pola yang diadaptasi: wordmark raksasa, headline 
 |---|---|---|---|
 | Kalili Steam Club | kalilidimsum.netlify.app | github.com/deanfisabilandwi1010/kaliliDimsum | Landing page interaktif; tombol "tahan untuk membuka" kukusan; model 3D dimsum yang bisa diputar; menu + Black Series; daftar "Pilihanmu". `package.json`: Next.js 15, React 19, Three.js, GSAP. Tidak ada pembayaran/checkout |
 | Tooday | toodaycafee.vercel.app | github.com/deanfisabilandwi1010/t00day | Menu berkategori & swipe, saran pairing, "Pilihanku", alur `/order` "pilih, kirim, bayar di kasir". `package.json`: Next.js 16, React 19, GSAP, Lenis, Supabase |
+| DompetQu (Kantong — Retro Money Club) | dompetqu-personal.vercel.app | github.com/deanfisabilandwi1010/DompDigital | Aplikasi keuangan pribadi bergaya desktop retro: rekening, transaksi & transfer (dengan refund), kantong virtual, anggaran, tujuan tabungan, pengingat, laporan arus kas/kategori, ekspor CSV, backup/restore JSON, mode demo. `package.json`/README: React 19, TypeScript, Vite, Nhost (Postgres + Hasura GraphQL), Dexie (IndexedDB), Vitest. Screenshot diambil dari **mode demo** (data fiktif). **Catatan:** di deployment live tertulis "Konfigurasi Nhost belum diisi (VITE_NHOST_SUBDOMAIN/REGION)" — mode catatan pribadi belum aktif di Vercel |
 
 **Asumsi yang perlu dikonfirmasi:** ada dua repo Tooday (`tooday` dan `t00day`). Saya memakai `t00day` karena paling baru dan memuat sistem order yang cocok dengan alur `/order` di situs live. Ganti `githubUrl` di `portfolio.ts` bila salah.
 

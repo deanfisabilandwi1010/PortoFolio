@@ -23,6 +23,7 @@ const CRITICAL_IMAGES = [
   "/assets/logos/unand.webp",
   "/assets/projects/kalili-preview-sm.webp",
   "/assets/projects/tooday-preview-sm.webp",
+  "/assets/projects/dompetqu-preview-sm.webp",
 ];
 const MIN_TIME = 1.1; // seconds the line needs to travel, even on a warm cache
 const MAX_WAIT = 6000; // never hold the page hostage to a slow asset

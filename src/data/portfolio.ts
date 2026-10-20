@@ -3,7 +3,7 @@
 // lists anything that still needs the owner's input before going live.
 
 export type Project = {
-  id: "kalili" | "tooday";
+  id: "kalili" | "tooday" | "dompetqu";
   index: string;
   title: string;
   client: string;
@@ -190,6 +190,30 @@ export const projects: Project[] = [
     previewMobile: "/assets/projects/tooday-mobile.webp",
     previewAlt: "Tooday homepage: “Make every day, tooday!” beside iced coffee, matcha and ButterTteok",
   },
+  {
+    id: "dompetqu",
+    index: "03",
+    title: "DompetQu",
+    client: "Kantong — Retro Money Club",
+    liveUrl: "https://dompetqu-personal.vercel.app/",
+    githubUrl: "https://github.com/deanfisabilandwi1010/DompDigital",
+    summary:
+      "A personal finance app dressed as a retro desktop. Accounts, transactions, virtual envelopes, budgets, savings goals and reminders — with reports, CSV export and JSON backup. A demo mode runs entirely in the browser.",
+    highlights: [
+      "Accounts, transactions and transfers with refunds",
+      "Virtual envelopes, monthly budgets and savings goals",
+      "Cash-flow and category reports with table alternatives",
+      "Per-user data on Postgres + GraphQL; demo mode on IndexedDB",
+      "CSV export and JSON backup / restore",
+    ],
+    role: null,
+    stack: ["React", "TypeScript", "Vite", "Nhost", "GraphQL", "IndexedDB"],
+    year: 2026,
+    preview: "/assets/projects/dompetqu-preview.webp",
+    previewSmall: "/assets/projects/dompetqu-preview-sm.webp",
+    previewMobile: "/assets/projects/dompetqu-mobile.webp",
+    previewAlt: "DompetQu dashboard in demo mode: balance, income and spending cards above cash-flow and category charts",
+  },
 ];
 
 export const processSteps = [
@@ -242,6 +266,9 @@ export const stack: StackItem[] = [
   { symbol: "Lv", name: "Laravel", category: "backend", role: "PHP framework", does: "Routing, authentication, database access and queues out of the box — the backbone of business applications." },
   { symbol: "Ph", name: "PHP", category: "backend", role: "Server language", does: "Runs the server-side logic behind web applications: requests, rules and data." },
   { symbol: "Sb", name: "Supabase", category: "backend", role: "Backend platform", does: "A hosted Postgres database with authentication, storage and APIs ready to use." },
+  { symbol: "Nh", name: "Nhost", category: "backend", role: "Backend platform", does: "Postgres, authentication and a GraphQL API as a service — each user only ever reads their own rows." },
+  { symbol: "Gq", name: "GraphQL", category: "backend", role: "API query language", does: "Lets the app ask the server for exactly the fields it needs, in one request." },
+  { symbol: "Dx", name: "Dexie", category: "backend", role: "Browser database", does: "A friendly wrapper around IndexedDB for storing data on the device — offline demos included." },
   { symbol: "Pg", name: "PostgreSQL", category: "backend", role: "Database", does: "A relational database for structured data, with transactions that keep every record consistent." },
   { symbol: "Vi", name: "Vite", category: "delivery", role: "Build tool", does: "An instant dev server and optimised production builds, split into small files that load only when needed." },
   { symbol: "Pw", name: "Playwright", category: "delivery", role: "End-to-end testing", does: "Drives real browsers to test whole user journeys — clicks, keyboard and mobile included." },

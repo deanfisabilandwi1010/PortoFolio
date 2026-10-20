@@ -72,7 +72,7 @@ job("mascot", async () => {
 });
 
 // --- Projects ---------------------------------------------------------------
-for (const id of ["kalili", "tooday"]) {
+for (const id of ["kalili", "tooday", "dompetqu"]) {
   job(`${id} desktop`, () => webp(`${SRC}/projects/${id}-desktop.png`, `${OUT}/projects/${id}-preview.webp`, { width: 1600, quality: 80 }));
   job(`${id} desktop sm`, () => webp(`${SRC}/projects/${id}-desktop.png`, `${OUT}/projects/${id}-preview-sm.webp`, { width: 800, quality: 76 }));
   job(`${id} mobile`, () => webp(`${SRC}/projects/${id}-mobile.png`, `${OUT}/projects/${id}-mobile.webp`, { width: 430, quality: 78 }));

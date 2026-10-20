@@ -61,7 +61,7 @@ export function WorkShowcase() {
         <h2 id="work-title" className={styles.title}>
           Selected <span className="serif">work</span>
         </h2>
-        <p className={styles.intro}>Two live websites — designed, built and shipped. Scroll to flip through them.</p>
+        <p className={styles.intro}>{projects.length === 2 ? "Two" : projects.length === 3 ? "Three" : projects.length} live projects — designed, built and shipped. Scroll to flip through them.</p>
 
         <div className={styles.listWrap}>
           <span className={styles.progress} aria-hidden>
@@ -94,7 +94,7 @@ export function WorkShowcase() {
               </h3>
               <p className={styles.summary}>{proj.summary}</p>
               <ul className={styles.highlights}>
-                {proj.highlights.map((h) => (
+                {proj.highlights.slice(0, 4).map((h) => (
                   <li key={h}>{h}</li>
                 ))}
               </ul>
