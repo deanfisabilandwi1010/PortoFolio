@@ -16,7 +16,7 @@ Ditinjau lewat halaman publik. Pola yang diadaptasi: wordmark raksasa, headline 
 
 ## Pekerjaan di PLN Nusa Daya
 
-Dari pemilik: programmer, mengelola aplikasi internal — **ERP, E-Arsip, Kinerja (KPI), dan GCG (Good Corporate Governance)** — serta menangani SecurityScorecard web. Keempat aplikasi tampil sebagai tile di kartu Internal applications dan di `Day Job.txt`; deskripsi singkat per aplikasi ada di `dutyAreas[0].apps` dan bisa disunting. Butir pekerjaan SecurityScorecard (triage temuan, perbaikan TLS/security header, verifikasi ulang) adalah deskripsi umum dari "penanganan SecurityScorecard web" — tidak ada skor atau angka yang ditampilkan. Sunting `dutyAreas` bila ingin lebih spesifik.
+Dari pemilik: programmer, mengelola empat aplikasi internal — serta menangani SecurityScorecard web. Atas permintaan pemilik, nama aplikasi **tidak ditampilkan**: situs hanya memakai kode (SYS-01–04) dan bidang umum (Operations, Records, Performance, Governance) di `dutyAreas[0].apps`. Butir pekerjaan SecurityScorecard (triage temuan, perbaikan TLS/security header, verifikasi ulang) adalah deskripsi umum dari "penanganan SecurityScorecard web" — tidak ada skor atau angka yang ditampilkan. Sunting `dutyAreas` bila ingin lebih spesifik.
 
 ## Data dari pemilik (20 Okt 2026)
 

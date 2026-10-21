@@ -45,7 +45,7 @@ function WorkEditorial() {
     <section ref={root} id="work" className={`${styles.work} shell`} aria-labelledby="work-title">
       <div className={styles.head}>
         <p className={`${styles.kicker} label-mono`} data-reveal>
-          (07) Selected work
+          (08) Selected work
         </p>
         <h2 id="work-title" className="section-title" data-reveal-lines>
           <span className="line-mask">

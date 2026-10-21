@@ -15,7 +15,39 @@
   color: var(--color-teal);
 }
 .sub {
-  max-width: 40ch;
+  max-width: 44ch;
+}
+.clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-teal);
+}
+.pulse {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-teal);
+}
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: beat 2.2s ease-out infinite;
+}
+@keyframes beat {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
 }
 
 /* Hand-drawn underline under the italic line */
@@ -40,263 +72,488 @@
   vector-effect: non-scaling-stroke;
 }
 
-/* Dashed rail the CTA travels along */
-.rail {
+/* ---- Stage: the rail, the composer, and Dean pushing it ---- */
+.stage {
+  --cell: clamp(220px, 21vw, 300px);
   position: relative;
   display: grid;
-  place-items: center;
+  justify-items: center;
   margin-top: clamp(40px, 6vw, 88px);
+  padding-inline: var(--gutter);
 }
-.rail::before {
-  content: "";
+/* dashed rail along the composer's floor; the solid part is what has been travelled */
+.rail {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  bottom: 0;
   border-top: 1.5px dashed rgba(85, 115, 115, 0.55);
 }
 .railDone {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(50% - 0.75px);
+  top: -1.5px;
   height: 1.5px;
   background: var(--color-olive);
   transform-origin: left;
-  transform: scaleX(0.5);
 }
-
-.cta {
+.mover {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: clamp(240px, 22vw, 320px);
+  width: min(620px, 100%);
+  will-change: transform;
+}
+.pusher {
+  position: absolute;
+  right: 100%;
+  bottom: calc(var(--cell) * -1 * (1 - 0.98));
+  width: var(--cell);
   aspect-ratio: 1;
-  color: var(--color-ivory);
+  margin-right: calc(var(--cell) * -0.03);
+  pointer-events: none;
 }
-.inner {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  transition: scale 0.3s var(--ease-out);
-}
-
-/* Entrance shape (diamond → arch), replaced by the door once it lands */
-.shape {
-  position: absolute;
-  inset: 0;
+.sprite {
   width: 100%;
   height: 100%;
-  overflow: visible;
+  background-repeat: no-repeat;
+  background-size: 800% 100%;
 }
-.shape path {
-  fill: var(--color-olive);
-}
-
-/* The door */
-.door {
+.plane {
   position: absolute;
-  inset: 2%;
-  perspective: 900px;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  width: 44px;
+  height: 36px;
+  margin-left: -22px;
+  pointer-events: none;
   visibility: hidden;
 }
-.interior {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 8px;
-  padding: 18% 10% 10%;
-  border-radius: 50% 50% 0 0 / 50% 50% 0 0;
-  background: var(--color-mist);
+
+/* ---- The composer window ---- */
+.window {
+  position: relative;
+  overflow: hidden;
   border: 1.5px solid var(--color-olive);
-  color: var(--color-olive);
-  text-align: center;
+  border-radius: 12px;
+  background: var(--color-ivory);
+  box-shadow:
+    0 1px 0 var(--color-olive),
+    var(--shadow-window);
+  text-align: left;
 }
-.interior :global(.label-mono) {
+.bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+  padding: 0 14px;
+  background: var(--color-olive);
+  color: var(--color-mist);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+}
+.dots {
+  display: flex;
+  gap: 5px;
+}
+.dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-mist);
+  opacity: 0.5;
+}
+.dots i:first-child {
+  background: var(--color-teal);
+  opacity: 1;
+}
+.barTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.status {
+  color: var(--color-ivory);
+}
+
+.form {
+  display: grid;
+}
+.field {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  margin: 0;
+  padding: 8px 18px;
+  border: 0;
+  border-bottom: 1px solid var(--border-strong);
+}
+.fieldLabel {
+  float: left; /* lets <legend> sit in the grid like a label */
+  padding: 0;
   color: var(--color-teal);
 }
-.mail {
-  font-size: clamp(1rem, 0.75rem + 0.6vw, 1.25rem);
-  line-height: 1.15;
-  overflow-wrap: anywhere;
+.to {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-width: 0;
 }
-.enter {
+.toChip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 6px;
-  padding: 7px 14px;
+  padding: 3px 10px 3px 3px;
   border-radius: 99px;
-  background: var(--color-olive);
-  color: var(--color-ivory);
+  background: var(--color-mist);
   font-size: 0.8125rem;
   font-weight: 600;
-}
-.enter svg {
-  width: 12px;
-  height: 12px;
-}
-
-.leaf {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  background: var(--color-olive);
-  transition:
-    transform 0.9s cubic-bezier(0.65, 0, 0.25, 1),
-    background-color 0.3s ease;
-  backface-visibility: hidden;
-}
-/* inset panel line on each leaf */
-.leaf::before {
-  content: "";
-  position: absolute;
-  inset: 14% 14% 10%;
-  border: 1px solid rgba(223, 229, 243, 0.22);
-}
-.leafL {
-  left: 0;
-  border-radius: 100% 0 0 0 / 50% 0 0 0;
-  transform-origin: 0% 50%;
-  box-shadow: inset -1px 0 0 rgba(223, 229, 243, 0.25);
-}
-.leafL::before {
-  border-radius: 100% 0 0 0 / 50% 0 0 0;
-  right: 10%;
-}
-.leafR {
-  right: 0;
-  border-radius: 0 100% 0 0 / 0 50% 0 0;
-  transform-origin: 100% 50%;
-}
-.leafR::before {
-  border-radius: 0 100% 0 0 / 0 50% 0 0;
-  left: 10%;
-}
-.knob {
-  position: absolute;
-  top: 76%;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-mist);
-}
-.leafL .knob {
-  right: 9%;
-}
-.leafR .knob {
-  left: 9%;
-}
-
-.ctaLabel {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  padding-top: 14%;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.625rem, 1.1rem + 1.3vw, 2.375rem);
-  line-height: 1.05;
-  text-align: center;
-  color: var(--color-ivory);
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Open: hover / keyboard focus on desktop, scroll position on touch */
-.cta:hover .leafL,
-.cta:focus-visible .leafL,
-.cta[data-open] .leafL {
-  transform: rotateY(-72deg);
-}
-.cta:hover .leafR,
-.cta:focus-visible .leafR,
-.cta[data-open] .leafR {
-  transform: rotateY(72deg);
-}
-.cta:hover .ctaLabel,
-.cta:focus-visible .ctaLabel,
-.cta[data-open] .ctaLabel {
-  opacity: 0;
-}
-.cta:hover .inner {
-  scale: 1.03;
-}
-
-/* Contact rows */
-.links {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 var(--col-gap);
-  margin-top: clamp(48px, 6vw, 88px);
-}
-.linkRow {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 4px 12px;
-  padding: 16px 0;
-  border-top: 1px solid var(--color-olive);
-}
-.linkLabel {
-  grid-column: 1 / -1;
-  color: var(--color-teal);
-}
-.linkValue {
-  min-width: 0;
-  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
-  font-weight: 600;
   color: var(--color-olive);
+}
+.toChip i {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-olive);
+  color: var(--color-ivory);
+  font: 700 10px/1 var(--font-sans);
+  font-style: normal;
+}
+.toMail {
+  font-size: 0.8125rem;
+  color: var(--color-teal);
   overflow-wrap: anywhere;
 }
-.linkArrow {
-  width: 16px;
-  height: 16px;
-  color: var(--color-olive);
-  transition: transform 0.4s var(--ease-out);
-}
-.linkRow:hover .linkArrow {
-  transform: translate(3px, -3px) rotate(45deg);
-}
-.copy {
-  min-height: 36px;
-  padding: 0 14px;
-  border: 1px solid var(--color-olive);
+.mini {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
   border-radius: 99px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-olive);
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+  transition: background-color 0.25s ease;
 }
-.copy:hover {
+.mini:hover {
   background: var(--color-mist);
 }
-.copy[data-copied] {
+
+/* fieldset can't be a grid container in every browser; the chips sit in their own row */
+.topics {
+  display: block;
+  padding-block: 12px;
+}
+.topics .fieldLabel {
+  width: 64px;
+  margin: 7px 12px 0 0;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 14px 0 10px;
+  border: 1px solid var(--color-olive);
+  border-radius: 99px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-olive);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.3s var(--ease-out);
+}
+.chip:hover {
+  transform: translateY(-2px);
+}
+.chip:active {
+  transform: scale(0.96);
+}
+.chipMark {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+/* a plus that turns into a tick */
+.chipMark::before,
+.chipMark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 1px;
+  translate: -50% -50%;
+  transition:
+    rotate 0.35s var(--ease-out),
+    width 0.35s var(--ease-out),
+    translate 0.35s var(--ease-out);
+}
+.chipMark::after {
+  rotate: 90deg;
+}
+.chip[aria-pressed="true"] {
   background: var(--color-olive);
   color: var(--color-ivory);
 }
+.chip[aria-pressed="true"] .chipMark::before {
+  width: 5px;
+  rotate: 45deg;
+  translate: -90% 10%;
+}
+.chip[aria-pressed="true"] .chipMark::after {
+  width: 10px;
+  rotate: -45deg;
+  translate: -30% -40%;
+}
 
+.input,
+.textarea {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--color-ink);
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(85, 115, 115, 0.8);
+}
+.input:focus,
+.textarea:focus {
+  outline: none;
+}
+.field:focus-within,
+.message:focus-within {
+  background: rgba(223, 229, 243, 0.45);
+}
+.message {
+  display: block;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-strong);
+}
+.textarea {
+  display: block;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+
+.foot {
+  display: grid;
+  gap: 14px;
+  padding: 14px 18px 18px;
+}
+.subject {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-olive);
+}
+.subject span {
+  margin-right: 8px;
+  color: var(--color-teal);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.send,
+.alt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 99px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.3s var(--ease-out);
+}
+.send {
+  background: var(--color-olive);
+  color: var(--color-ivory);
+}
+.send:hover {
+  background: var(--color-teal);
+  transform: translateY(-2px);
+}
+.send svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.35s var(--ease-out);
+}
+.send:hover svg {
+  transform: translate(2px, -2px);
+}
+.alt {
+  border: 1px solid var(--color-olive);
+  color: var(--color-olive);
+}
+.alt:hover {
+  background: var(--color-mist);
+}
+
+/* ---- Other ways: three cards that flood olive on hover ---- */
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--col-gap);
+  margin-top: clamp(56px, 7vw, 104px);
+  padding: 0;
+}
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "icon label action"
+    "value value value";
+  align-items: center;
+  gap: 18px 12px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid var(--color-olive);
+  border-radius: 10px;
+  color: var(--color-olive);
+  text-align: left;
+  isolation: isolate;
+  transition: color 0.35s ease;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-olive);
+  clip-path: circle(0% at 0% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.card:hover,
+.card:focus-visible {
+  color: var(--color-ivory);
+}
+.card:hover::before,
+.card:focus-visible::before {
+  clip-path: circle(150% at 0% 100%);
+}
+.cardIcon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition: transform 0.5s var(--ease-out);
+}
+.cardIcon svg {
+  width: 20px;
+  height: 20px;
+}
+.card:hover .cardIcon {
+  transform: rotate(-12deg) scale(1.06);
+}
+.cardLabel {
+  grid-area: label;
+  color: var(--color-teal);
+  transition: color 0.35s ease;
+}
+.card:hover .cardLabel,
+.card:focus-visible .cardLabel {
+  color: var(--color-mist);
+}
+.cardValue {
+  grid-area: value;
+  min-width: 0;
+  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.25rem);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.cardAction {
+  grid-area: action;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.cardAction svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.4s var(--ease-out);
+}
+.card:hover .cardAction svg {
+  transform: translate(3px, -3px) rotate(45deg);
+}
+
+/* Dean only fits beside the composer on wide screens. */
+@media (max-width: 1023px) {
+  .pusher {
+    display: none;
+  }
+}
 @media (max-width: 767px) {
-  .links {
+  .cards {
     grid-template-columns: 1fr;
+  }
+  .stage {
+    padding-inline: 16px;
+  }
+  .field {
+    grid-template-columns: 48px 1fr;
+    padding-inline: 14px;
+  }
+  .field .mini {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .topics .fieldLabel {
+    float: none;
+    display: block;
+    margin: 0 0 10px;
+  }
+  .message,
+  .foot {
+    padding-inline: 14px;
+  }
+  .barTitle {
+    display: none;
+  }
+  .bar {
+    grid-template-columns: auto 1fr;
+  }
+  .status {
+    justify-self: end;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door {
-    visibility: visible;
-  }
-  .shape {
-    display: none;
-  }
-  .leaf {
-    transition: none;
+  .pulse::after {
+    animation: none;
   }
 }

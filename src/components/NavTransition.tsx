@@ -13,9 +13,10 @@ const DESTINATIONS: Record<string, Dest> = {
   "#day-job": { index: "04", title: "Day", italic: "job" },
   "#process": { index: "05", title: "How I", italic: "work" },
   "#stack": { index: "06", title: "My", italic: "toolkit" },
-  "#work": { index: "07", title: "Selected", italic: "work" },
-  "#desktop": { index: "08", title: "My", italic: "desktop" },
-  "#contact": { index: "09", title: "Let’s", italic: "talk" },
+  "#interests": { index: "07", title: "Interested", italic: "in" },
+  "#work": { index: "08", title: "Selected", italic: "work" },
+  "#desktop": { index: "09", title: "My", italic: "desktop" },
+  "#contact": { index: "10", title: "Let’s", italic: "talk" },
 };
 
 /**

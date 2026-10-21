@@ -6,7 +6,8 @@ import { DesktopTaskbar } from "./DesktopTaskbar";
 import { DesktopBuddy } from "./DesktopBuddy";
 import { RetroWindow, closeWithFocus } from "./RetroWindow";
 import { PhotoViewer } from "./PhotoViewer";
-import { photos } from "../data/photos";
+import { clips, photos } from "../data/photos";
+import { VideoPlayer } from "./VideoPlayer";
 import { ProjectsApp } from "./ProjectsApp";
 import { AboutApp, ContactApp, DayJobApp } from "./TextApps";
 import styles from "./DesktopSurface.module.css";
@@ -18,6 +19,8 @@ const content: Record<WindowId, () => ReactNode> = {
   contact: () => <ContactApp />,
   portrait: () => <PhotoViewer photo={photos.portrait} />,
   photobooth: () => <PhotoViewer photo={photos.photobooth} />,
+  photoboothClip: () => <VideoPlayer id="photoboothClip" clip={clips.photobooth} />,
+  memories: () => <PhotoViewer photo={photos.memories} />,
   afterHours: () => <PhotoViewer photo={photos.afterHours} />,
 };
 

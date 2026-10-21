@@ -2,48 +2,84 @@
   position: fixed;
   inset: 0;
   z-index: 900;
+  overflow: hidden;
   color: var(--color-ivory);
   pointer-events: auto;
 }
 
-.half {
+/* The window in the middle. Its enormous shadow is the olive screen around it,
+   so growing the window to the viewport removes the olive with it. */
+.window {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 200vmax var(--color-olive);
+}
+
+/* Ivory card with the name; it stays centred while the window widens around it. */
+.card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--color-ivory);
+  background-image: radial-gradient(circle, rgba(85, 115, 115, 0.16) 1.1px, transparent 1.6px);
+  background-size: 26px 26px;
+  background-position: center;
+}
+.name {
+  display: grid;
+  justify-items: center;
+  font-size: min(13vh, 14vw, 150px);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  color: var(--color-olive);
+}
+
+/* Square sprite cell, sized and placed at runtime: palms on the window's right edge, soles on its floor. */
+.pusher {
   position: absolute;
   left: 0;
-  right: 0;
-  height: 50.5%;
-  background: var(--color-olive);
+  top: 0;
   will-change: transform;
 }
-.top {
-  top: 0;
-}
-.bottom {
-  bottom: 0;
+.sprite {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 800% 100%;
+  background-position: 0 0;
 }
 
-.topMeta {
+/* Counter hangs under the edge being pushed and travels with it. */
+.readout {
   position: absolute;
-  left: var(--gutter);
-  right: var(--gutter);
-  bottom: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  left: 0;
+  top: 0;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  padding-top: 14px;
+  white-space: nowrap;
 }
-
 .counter {
-  font-size: clamp(0.875rem, 0.7rem + 0.5vw, 1.125rem);
-  letter-spacing: 0.3em;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.75rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
   color: var(--color-ivory);
 }
-
 .hint {
   color: var(--color-mist);
   letter-spacing: 0.14em;
 }
 .arrows {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 6px;
   letter-spacing: -0.1em;
   animation: nudge 0.9s ease-in-out infinite;
 }
@@ -53,54 +89,32 @@
   }
 }
 
-.bottomMeta {
+.top {
+  position: absolute;
+  left: var(--gutter);
+  top: var(--gutter);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--color-mist);
+  letter-spacing: 0.14em;
+}
+.bottom {
   position: absolute;
   left: var(--gutter);
   right: var(--gutter);
-  top: 26px;
+  bottom: var(--gutter);
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
   color: var(--color-mist);
 }
-.name {
-  font-size: clamp(1.25rem, 1rem + 1vw, 2rem);
+.who {
+  font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.75rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--color-ivory);
-}
-
-/* Perforated line across the middle; the solid part is what has been "cut". */
-.line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 0;
-  border-top: 1.5px dashed rgba(242, 239, 234, 0.55);
-}
-.cut {
-  position: absolute;
-  left: 0;
-  top: -1.5px;
-  width: 100%;
-  height: 1.5px;
-  background: var(--color-ivory);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-.cutter {
-  position: absolute;
-  left: 0;
-  top: -9px;
-  width: 16px;
-  height: 16px;
-  margin-left: -8px;
-  background: var(--color-mist);
-  border: 2px solid var(--color-ivory);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  box-shadow: 0 0 0 6px rgba(223, 229, 243, 0.15);
 }
 
 .skip {
@@ -118,9 +132,9 @@
 }
 
 @media (max-width: 639px) {
-  .bottomMeta {
+  .bottom {
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 }
 
@@ -128,31 +142,4 @@
   .arrows {
     animation: none;
   }
-}
-
-/* Ivory twin of the hero wordmark; positioned over it at runtime. */
-.mark {
-  position: absolute;
-  z-index: 1;
-  top: 70px;
-  left: var(--gutter);
-  right: auto;
-  width: calc(100% - var(--gutter) * 2);
-  color: var(--color-ivory);
-}
-
-.dots {
-  position: absolute;
-  left: 50%;
-  top: calc(50% + 96px);
-  translate: -50% 0;
-  display: flex;
-  gap: 12px;
-}
-.dots span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(242, 239, 234, 0.25);
-  transform: scale(0.7);
 }

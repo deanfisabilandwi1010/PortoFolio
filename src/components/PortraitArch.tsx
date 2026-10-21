@@ -126,9 +126,9 @@ export function PortraitArch({ play }: { play: boolean }) {
         <img
           className={`${styles.photo} ${styles.reveal}`}
           data-photo
-          src="/assets/photos/after-hours.webp"
-          width={1600}
-          height={1066}
+          src="/assets/photos/me.webp"
+          width={1020}
+          height={1280}
           alt=""
           aria-hidden
           draggable={false}

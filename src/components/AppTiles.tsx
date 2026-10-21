@@ -8,20 +8,28 @@ import styles from "./AppTiles.module.css";
 gsap.registerPlugin(DrawSVGPlugin);
 
 /**
- * Internal apps as live tiles. At rest each shows a faint blueprint of its
- * illustration; on hover / focus / tap the tile floods with olive from the side
- * the pointer came in, the name rolls, the illustration draws itself and plays,
- * and the card tilts toward the pointer.
+ * Internal systems as "classified" tiles: the real names stay private. At rest each
+ * shows a codename, a redaction bar and a faint blueprint; on hover / focus / tap the
+ * tile floods with olive from the side the pointer came in, the lock opens, the bar
+ * wipes away to reveal only the broad area, the illustration plays, and the card tilts.
  */
 export function AppTiles({ apps }: { apps: InternalApp[] }) {
   return (
-    <ul className={styles.tiles} aria-label="Internal applications I manage">
-      {apps.map((app, i) => (
-        <li key={app.name} className={styles.tile} data-app-tile>
-          <AppTile app={app} index={i} />
-        </li>
-      ))}
-    </ul>
+    <div className={styles.wrap}>
+      <p className={`${styles.brief} label-mono`}>
+        <span>{String(apps.length).padStart(2, "0")} systems · in daily use · names withheld</span>
+        <span className={styles.stamp} data-stamp aria-hidden>
+          Internal only
+        </span>
+      </p>
+      <ul className={styles.tiles} aria-label="Internal systems I manage, by area">
+        {apps.map((app) => (
+          <li key={app.code} className={styles.tile} data-app-tile>
+            <AppTile app={app} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -39,7 +47,7 @@ function nearestEdge(el: HTMLElement, e: { clientX: number; clientY: number }): 
   return (Object.keys(d) as Edge[]).reduce((a, b) => (d[a] <= d[b] ? a : b));
 }
 
-function AppTile({ app, index }: { app: InternalApp; index: number }) {
+function AppTile({ app }: { app: InternalApp }) {
   const card = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
   const { reduced, finePointer } = useMotion();
@@ -52,9 +60,11 @@ function AppTile({ app, index }: { app: InternalApp; index: number }) {
       const fill = q("[data-fill]")[0];
       const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
       // Name rolls letter by letter to its twin underneath.
-      tl.to(q("[data-roll] > span > span"), { yPercent: -100, duration: 0.5, stagger: 0.025, ease: "power3.inOut" }, 0)
-        .to(q("[data-desc]"), { y: -4, duration: 0.4 }, 0)
-        .to(q("[data-diamond]"), { rotate: 225, scale: 1.4, duration: 0.6 }, 0);
+      // Declassify: the lock opens, the redaction bar wipes off, the area rolls in, the status line flips.
+      tl.to(q("[data-shackle]"), { y: -3, duration: 0.35, ease: "back.out(3)" }, 0)
+        .to(q("[data-redact]"), { scaleX: 0, duration: 0.45, ease: "power3.inOut" }, 0.05)
+        .to(q("[data-roll] > span > span"), { yPercent: -100, duration: 0.5, stagger: 0.025, ease: "power3.inOut" }, 0.12)
+        .to(q("[data-desc] > span"), { yPercent: -50, duration: 0.45, ease: "power3.inOut" }, 0.15);
       buildArt(app.art, q, tl);
       gsap.set(fill, { clipPath: CLOSED.bottom });
       let active = false;
@@ -134,29 +144,37 @@ function AppTile({ app, index }: { app: InternalApp; index: number }) {
       className={styles.card}
       data-on={on || undefined}
       role="group"
-      aria-label={`${app.name}${app.tag ? ` (${app.tag})` : ""}: ${app.description}`}
+      aria-label={`System ${app.code}, ${app.area}: ${app.short}`}
       tabIndex={0}
     >
       <span className={styles.fill} data-fill aria-hidden />
       <span className={styles.glare} aria-hidden />
       <span className={styles.top} aria-hidden>
-        <span className="label-mono">{String(index + 1).padStart(2, "0")}</span>
-        <span className={styles.diamond} data-diamond />
+        <span className="label-mono">{app.code}</span>
+        <svg className={styles.lock} viewBox="0 0 14 16">
+          <path data-shackle d="M4 7V4.6a3 3 0 0 1 6 0V7" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          <rect x="2" y="7" width="10" height="8" rx="1.6" fill="currentColor" />
+        </svg>
       </span>
       <span className={styles.name} aria-hidden>
         <span className={styles.roll} data-roll>
           {[0, 1].map((copy) => (
             <span key={copy} className={styles.rollLine}>
-              {[...app.name].map((ch, i) => (
+              {[...app.area].map((ch, i) => (
                 <span key={i}>{ch}</span>
               ))}
             </span>
           ))}
         </span>
-        {app.tag && app.tag.length <= 4 && <span className={`${styles.tag} serif`}> ({app.tag})</span>}
+        <span className={styles.redact} data-redact>
+          <span className="label-mono">Classified</span>
+        </span>
       </span>
       <span className={styles.desc} data-desc aria-hidden>
-        {app.description}
+        <span className={styles.descTrack}>
+          <span className="label-mono">Access: internal only</span>
+          <span>{app.short}</span>
+        </span>
       </span>
       <Art kind={app.art} />
     </div>

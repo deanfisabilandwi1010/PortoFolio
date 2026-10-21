@@ -23,4 +23,26 @@ export const photos = {
     alt: "Dean in glasses and a black hoodie, leaning an arm on an anatomical skeleton model wearing a beanie and a red waist bag",
     caption: "After hours",
   },
+  memories: {
+    src: "/assets/photos/memories.webp",
+    width: 1080,
+    height: 1920,
+    alt: "Instant-film collage from a group photo shoot: friends in a white studio pointing at the camera, pulling faces and grinning",
+    caption: "Memories — group shoot",
+  },
 } satisfies Record<string, Photo>;
+
+/** Short silent clips shown in the desktop's video player. */
+export type Clip = Photo & { poster: string; duration: number };
+
+export const clips = {
+  photobooth: {
+    src: "/assets/videos/photobooth-2.mp4",
+    poster: "/assets/videos/photobooth-2-poster.webp",
+    width: 720,
+    height: 480,
+    duration: 6.5,
+    alt: "Photo booth clip: Dean and a friend in front of a pink curtain, pointing and smiling, then pulling faces",
+    caption: "Photo booth, in motion",
+  },
+} satisfies Record<string, Clip>;

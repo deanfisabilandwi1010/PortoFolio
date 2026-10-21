@@ -34,9 +34,8 @@ export function DayJobApp() {
           <p>{d.summary}</p>
           <ul>
             {d.apps?.map((app) => (
-              <li key={app.name}>
-                <b>{app.name}</b>
-                {app.tag && app.tag.length <= 4 ? ` (${app.tag})` : ""} — {app.description}
+              <li key={app.code}>
+                <b>{app.code}</b> {app.area} — {app.short.toLowerCase()} <i>(name withheld)</i>
               </li>
             ))}
             {d.points.map((pt) => (

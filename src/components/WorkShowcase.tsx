@@ -57,7 +57,7 @@ export function WorkShowcase() {
   return (
     <section ref={root} id="work" className={`${styles.showcase} shell`} aria-labelledby="work-title">
       <div className={styles.left}>
-        <p className={`${styles.kicker} label-mono`}>(07) Selected work</p>
+        <p className={`${styles.kicker} label-mono`}>(08) Selected work</p>
         <h2 id="work-title" className={styles.title}>
           Selected <span className="serif">work</span>
         </h2>

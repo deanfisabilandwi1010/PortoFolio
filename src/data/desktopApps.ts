@@ -2,7 +2,7 @@ import type { Rect, Size } from "../desktop/windowGeometry";
 import { ICON_COLUMN } from "../desktop/windowGeometry";
 import { profile } from "./portfolio";
 
-export type WindowId = "about" | "dayjob" | "portrait" | "photobooth" | "afterHours" | "projects" | "contact";
+export type WindowId = "about" | "dayjob" | "portrait" | "photobooth" | "photoboothClip" | "memories" | "afterHours" | "projects" | "contact";
 
 export type DesktopApp = {
   id: WindowId;
@@ -10,7 +10,7 @@ export type DesktopApp = {
   file: string;
   /** Window title */
   title: string;
-  kind: "text" | "photo" | "folder";
+  kind: "text" | "photo" | "video" | "folder";
   thumb?: string;
   /** Layout from desktop size; clamped afterwards */
   layout: (b: Size) => Rect;
@@ -57,6 +57,22 @@ export const desktopApps: DesktopApp[] = [
     kind: "photo",
     thumb: "/assets/thumbs/photobooth.webp",
     layout: (b) => ({ x: usable(b) * 0.2, y: 48, width: 620, height: 520 }),
+  },
+  {
+    id: "photoboothClip",
+    file: "Photooboth<3",
+    title: "Photooboth<3",
+    kind: "video",
+    thumb: "/assets/thumbs/photobooth-clip.webp",
+    layout: (b) => ({ x: usable(b) * 0.24, y: 40, width: 620, height: 520 }),
+  },
+  {
+    id: "memories",
+    file: "Memories.png",
+    title: "Memories.png",
+    kind: "photo",
+    thumb: "/assets/thumbs/memories.webp",
+    layout: (b) => ({ x: usable(b) * 0.36, y: 24, width: 420, height: Math.min(680, b.height - 48) }),
   },
   {
     id: "afterHours",

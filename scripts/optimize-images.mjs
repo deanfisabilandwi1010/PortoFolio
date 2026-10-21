@@ -1,7 +1,7 @@
 // Builds optimized web copies of everything in Asset/ into public/assets/.
 // Sources in Asset/ are never modified.
 import sharp from "sharp";
-import { mkdir, stat } from "node:fs/promises";
+import { copyFile, mkdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const SRC = "Asset";
@@ -46,10 +46,35 @@ job("photobooth thumb", () =>
   webp(BOOTH, `${OUT}/thumbs/photobooth.webp`, { crop: { left: 0, top: 0, width: 600, height: 600 }, width: 160, quality: 70 }),
 );
 
+// Hover photo in the hero portrait arch. 1020x1280 — never upscale.
+job("me", () => webp(`${SRC}/Me.jpeg`, `${OUT}/photos/me.webp`, { quality: 80 }));
+
 const AFTER = `${SRC}/Gemini_Generated_Image_3ndul13ndul13ndu.png`;
 job("after hours", () => webp(AFTER, `${OUT}/photos/after-hours.webp`, { width: 1600, quality: 76 }));
 job("after hours thumb", () =>
   webp(AFTER, `${OUT}/thumbs/after-hours.webp`, { crop: { left: 1200, top: 80, width: 900, height: 900 }, width: 160, quality: 70 }),
+);
+
+// Instant-film collage, 1080x1920 portrait — kept at source size.
+const MEMORIES = `${SRC}/Memories.png`;
+job("memories", () => webp(MEMORIES, `${OUT}/photos/memories.webp`, { quality: 78 }));
+job("memories thumb", () =>
+  webp(MEMORIES, `${OUT}/thumbs/memories.webp`, { crop: { left: 170, top: 300, width: 560, height: 560 }, width: 160, quality: 70 }),
+);
+
+// --- Video ------------------------------------------------------------------
+// 720x480, 6.5 s, no audio track — small enough to ship as is.
+const CLIP = `${SRC}/photoobooth-2.mp4`;
+job("photobooth clip", async () => {
+  const out = await ensure(`${OUT}/videos/photobooth-2.mp4`);
+  await copyFile(CLIP, out);
+  await report(out);
+});
+// No ffmpeg in this toolchain: the poster is a frame grabbed from the clip, kept in Asset/ beside it.
+const CLIP_POSTER = `${SRC}/photoobooth-2-poster.png`;
+job("photobooth clip poster", () => webp(CLIP_POSTER, `${OUT}/videos/photobooth-2-poster.webp`, { quality: 78 }));
+job("photobooth clip thumb", () =>
+  webp(CLIP_POSTER, `${OUT}/thumbs/photobooth-clip.webp`, { crop: { left: 120, top: 0, width: 480, height: 480 }, width: 160, quality: 70 }),
 );
 
 // --- Desktop decoration -----------------------------------------------------

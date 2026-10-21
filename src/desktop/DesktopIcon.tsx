@@ -4,6 +4,13 @@ import { desktopStore } from "./useWindowStore";
 import styles from "./DesktopSurface.module.css";
 
 function Glyph({ app }: { app: DesktopApp }) {
+  if (app.thumb && app.kind === "video")
+    return (
+      <span className={styles.clipThumb}>
+        <img className={styles.thumb} src={app.thumb} width={160} height={160} alt="" loading="lazy" />
+        <span className={styles.playBadge} aria-hidden />
+      </span>
+    );
   if (app.thumb) return <img className={styles.thumb} src={app.thumb} width={160} height={160} alt="" loading="lazy" />;
   if (app.kind === "folder") return <FolderIcon className={styles.svgIcon} />;
   if (app.id === "dayjob") return <ShieldIcon className={styles.svgIcon} />;

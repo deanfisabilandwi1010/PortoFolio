@@ -154,11 +154,27 @@ test.describe("security console & mobile work", () => {
   });
 });
 
+test.describe("interests", () => {
+  test("the three interest tickets are dealt and readable", async ({ page }) => {
+    await page.goto("/#interests");
+    const track = page.locator("[data-track]");
+    // scroll to the end of the scene (desktop pin) or past each ticket (phones)
+    await track.evaluate((el: HTMLElement) => window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY + el.offsetHeight - window.innerHeight));
+    for (const title of ["Web Development", "UI/UX Design", "Interactive Website"]) {
+      // located by text: the ticket may still be hidden by its entrance until scrolled to
+      const t = page.locator("#interests h3", { hasText: title });
+      await t.evaluate((el) => el.scrollIntoView({ block: "center" }));
+      await expect(t).toBeVisible();
+    }
+    await expect(page.locator("#interests-title")).toHaveText("Interested in");
+  });
+});
+
 test.describe("internal app tiles", () => {
   test("hover, keyboard focus and tap all play a tile", async ({ page, isMobile }) => {
     await page.goto("/#day-job");
     // Located by attribute: the tile can still be hidden by its scroll reveal until scrolled to.
-    const tile = page.locator('[role="group"][aria-label^="Kinerja (KPI)"]');
+    const tile = page.locator('[role="group"][aria-label^="System SYS-03"]');
     await tile.evaluate((el) => el.scrollIntoView({ block: "center" }));
     await expect(tile).toBeVisible();
     if (isMobile) {
@@ -173,10 +189,10 @@ test.describe("internal app tiles", () => {
     await page.mouse.move(5, 5);
     await expect(tile).not.toHaveAttribute("data-on", "true");
     // keyboard
-    await page.locator('[role="group"][aria-label^="E-Arsip"]').focus();
+    await page.locator('[role="group"][aria-label^="System SYS-02"]').focus();
     await page.keyboard.press("Tab");
-    await expect(page.locator('[role="group"][aria-label^="Kinerja"]')).toBeFocused();
-    await expect(page.locator('[role="group"][aria-label^="Kinerja"]')).toHaveAttribute("data-on", "true");
+    await expect(page.locator('[role="group"][aria-label^="System SYS-03"]')).toBeFocused();
+    await expect(page.locator('[role="group"][aria-label^="System SYS-03"]')).toHaveAttribute("data-on", "true");
   });
 });
 
@@ -350,6 +366,22 @@ test.describe("mobile", () => {
     await win(page, "Photo Booth.jpg").getByRole("button", { name: "Back to files" }).click();
     await expect(win(page, "Photo Booth.jpg")).toBeHidden();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+});
+
+test.describe("photo booth clip", () => {
+  test("opens from its desktop icon, plays, and stops when closed", async ({ page, isMobile }) => {
+    await openDesktop(page);
+    await page.getByRole("button", { name: "Open Photooboth<3" }).click();
+    await expect(win(page, "Photooboth<3")).toBeVisible();
+    const video = page.locator('[data-window="photoboothClip"] video');
+    // Playwright's WebKit on Windows ships without H.264; only assert playback where the codec exists.
+    const canPlay = await video.evaluate((v: HTMLVideoElement) => v.canPlayType('video/mp4; codecs="avc1.42E01E"') !== "");
+    if (canPlay) await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.currentTime), { timeout: 8000 }).toBeGreaterThan(0.3);
+    await win(page, "Photooboth<3")
+      .getByRole("button", { name: isMobile ? "Back to files" : "Close Photooboth<3" })
+      .click();
+    await expect.poll(() => video.evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
   });
 });
 

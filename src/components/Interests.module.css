@@ -1,0 +1,300 @@
+.section {
+  position: relative;
+  margin-top: var(--section-space);
+  scroll-margin-top: var(--header-h);
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(56px, 7vw, 96px) var(--gutter);
+}
+
+/* Soft colour bloom from the palette (mist → teal), feathered into the ivory page */
+.bloom {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -30%;
+  width: 160vmax;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(85, 115, 115, 0.95) 0%,
+    rgba(85, 115, 115, 0.75) 22%,
+    rgba(223, 229, 243, 0.95) 40%,
+    rgba(223, 229, 243, 0.5) 55%,
+    rgba(242, 239, 234, 0) 68%
+  );
+  filter: blur(18px);
+  transform-origin: 50% 100%;
+}
+
+/* Statement that sharpens out of the blur */
+.statement {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.kicker {
+  color: var(--color-olive);
+}
+.statementText {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.24em;
+  max-width: 12ch;
+  color: var(--color-ivory);
+  font-size: clamp(3rem, 1.6rem + 5.4vw, 8rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 30px rgba(39, 36, 1, 0.12);
+}
+.statementText :global(.serif) {
+  font-size: 1.08em;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.word {
+  display: inline-block;
+}
+
+/* Deck of tickets */
+.deck {
+  display: grid;
+  justify-items: center;
+  gap: clamp(20px, 3vh, 36px);
+  margin-top: 48px;
+}
+.pill {
+  padding: 6px 30px 10px;
+  border: 1.5px solid var(--color-ivory);
+  border-radius: 50%;
+  color: var(--color-ivory);
+  font-size: clamp(1.5rem, 1.1rem + 1vw, 2.125rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 26px);
+  width: min(100%, 1240px);
+}
+.slot {
+  perspective: 1000px;
+}
+
+.ticket {
+  --cut: 11px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--color-olive);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 18px 30px rgba(39, 36, 1, 0.16));
+  outline: none;
+}
+.ticket:focus-visible .body,
+.ticket:focus-visible .stub {
+  box-shadow: 0 0 0 2px var(--color-olive);
+}
+
+.body,
+.stub {
+  background: var(--color-ivory);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(20px, 2vw, 28px) clamp(20px, 2vw, 28px) 24px;
+  border-radius: 18px 18px 4px 4px;
+  /* ticket punches at the perforation */
+  -webkit-mask:
+    radial-gradient(circle var(--cut) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--cut) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--cut) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--cut) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.title {
+  font-size: clamp(2rem, 1.2rem + 1.6vw, 3rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-olive);
+}
+.why {
+  font-size: clamp(0.9375rem, 0.85rem + 0.25vw, 1.0625rem);
+  line-height: 1.45;
+}
+.why :global(.serif) {
+  font-size: 1.1em;
+  color: var(--color-teal);
+}
+.focus {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 18px;
+  font-size: 0.9375rem;
+}
+.focus li {
+  position: relative;
+  padding-left: 18px;
+}
+.focus li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 7px;
+  height: 7px;
+  background: var(--color-teal);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.stub {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 18px clamp(20px, 2vw, 28px) 20px;
+  border-radius: 4px 4px 18px 18px;
+  -webkit-mask:
+    radial-gradient(circle var(--cut) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--cut) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--cut) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--cut) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+  transform-origin: 100% 0%;
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+/* perforation */
+.stub::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--cut) + 6px);
+  right: calc(var(--cut) + 6px);
+  top: -1px;
+  border-top: 2px dashed var(--color-teal);
+}
+/* Hover: the stub starts to tear away */
+.ticket:hover .stub,
+.ticket:focus-visible .stub {
+  transform: translateY(8px) rotate(-3deg);
+}
+
+.stubRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.6875rem;
+  color: var(--color-olive);
+}
+.stubNum {
+  font-size: 0.9375rem;
+}
+.code {
+  color: var(--color-teal);
+}
+.barcode {
+  width: 100%;
+  height: 44px;
+  fill: var(--color-olive);
+}
+
+.footnote {
+  max-width: 52ch;
+  text-align: center;
+  color: var(--color-olive);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.footnote :global(.serif) {
+  font-size: 1.2em;
+}
+
+/* Desktop with motion: one pinned scene — statement and deck share the stage */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .track {
+    height: 300svh;
+  }
+  .stage {
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100svh - var(--header-h));
+    padding-block: 24px;
+  }
+  .statement {
+    position: absolute;
+    inset: 0;
+    place-content: center;
+  }
+  .deck {
+    height: 100%;
+    margin-top: 0;
+    align-content: center;
+  }
+  .deckHead,
+  .footnote {
+    visibility: hidden;
+  }
+  .slot {
+    visibility: hidden;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 1024px) {
+  .why {
+    font-size: 0.875rem;
+  }
+  .focus {
+    font-size: 0.8125rem;
+    padding-top: 10px;
+  }
+  .barcode {
+    height: 32px;
+  }
+  .footnote {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  /* a tall ellipse behind the whole section so every ticket sits on colour */
+  .bloom {
+    top: 0;
+    bottom: 0;
+    width: 240vw;
+    aspect-ratio: auto;
+    translate: -50% 0;
+    filter: blur(24px);
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 45%,
+      rgba(85, 115, 115, 0.85) 0%,
+      rgba(85, 115, 115, 0.6) 35%,
+      rgba(223, 229, 243, 0.95) 70%,
+      rgba(242, 239, 234, 0) 100%
+    );
+  }
+  .statementText {
+    color: var(--color-olive);
+  }
+  .tickets {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+  }
+  .pill {
+    border-color: var(--color-olive);
+    color: var(--color-olive);
+  }
+}

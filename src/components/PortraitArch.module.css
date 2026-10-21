@@ -37,7 +37,7 @@
 }
 /* Second photo, wiped in as a circle from the pointer */
 .reveal {
-  object-position: 76% 30%;
+  object-position: 50% 30%;
   -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 99%, transparent 100%);
   mask-image: radial-gradient(circle var(--r) at var(--x) var(--y), #000 99%, transparent 100%);
 }

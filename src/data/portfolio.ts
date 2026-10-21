@@ -31,15 +31,16 @@ export type Credential = {
   logoHeight: number;
 };
 
+/** An internal system, described only in broad strokes: the real names stay private. */
 export type InternalApp = {
-  name: string;
+  /** Public codename, e.g. "SYS-01". */
+  code: string;
+  /** The broad area it serves — never the system's real name. */
+  area: string;
+  /** One generic line about what that area is for. */
+  short: string;
   /** Which hover illustration the tile plays. */
   art: "modules" | "archive" | "kpi" | "governance";
-  /** Two-word label for tight spots (the ID card's back). */
-  short: string;
-  /** Short qualifier shown next to the name, e.g. "KPI" */
-  tag?: string;
-  description: string;
 };
 
 export type DutyArea = {
@@ -47,7 +48,7 @@ export type DutyArea = {
   title: string;
   italic: string;
   summary: string;
-  /** Named systems, shown as tiles. */
+  /** Internal systems, shown as redacted tiles (codename + broad area only). */
   apps?: InternalApp[];
   points: string[];
   tags: string[];
@@ -120,10 +121,10 @@ export const dutyAreas: DutyArea[] = [
     summary:
       "I manage the internal web applications teams at PLN Nusa Daya rely on every day — keeping them running, fixing what breaks, and shipping the improvements people ask for.",
     apps: [
-      { name: "ERP", art: "modules", short: "Business processes", description: "The system behind the company's day-to-day business processes" },
-      { name: "E-Arsip", art: "archive", short: "Document archive", description: "A digital archive for company documents" },
-      { name: "Kinerja", tag: "KPI", art: "kpi", short: "Performance · KPI", description: "Performance and KPI tracking for teams and staff" },
-      { name: "GCG", tag: "Good Corporate Governance", art: "governance", short: "Corporate governance", description: "Good Corporate Governance assessment and reporting" },
+      { code: "SYS-01", area: "Operations", short: "Keeps everyday processes moving", art: "modules" },
+      { code: "SYS-02", area: "Records", short: "Documents, archived and easy to find", art: "archive" },
+      { code: "SYS-03", area: "Performance", short: "Progress teams can measure", art: "kpi" },
+      { code: "SYS-04", area: "Governance", short: "Reporting that stays accountable", art: "governance" },
     ],
     points: ["Maintenance, bug fixing and feature requests, with deployments, data and access kept tidy"],
     tags: ["Laravel", "PHP", "Blade", "JavaScript"],
@@ -278,4 +279,38 @@ export const stack: StackItem[] = [
   { symbol: "Nf", name: "Netlify", category: "delivery", role: "Hosting", does: "Builds and serves sites from a global CDN, automatically on every push." },
   { symbol: "Sc", name: "SecurityScorecard", category: "security", role: "Security rating", does: "Rates an organisation's public-facing security posture and lists the findings that need fixing." },
   { symbol: "Tl", name: "TLS & headers", category: "security", role: "Web hardening", does: "Encrypted connections plus browser security headers that block attacks like clickjacking and protocol downgrades." },
+];
+
+export type Interest = {
+  code: string;
+  title: string;
+  /** Why it pulls me in. Words wrapped in *asterisks* render as italic serif. */
+  why: string;
+  focus: string[];
+  /** Short line printed on the ticket stub. */
+  stamp: string;
+};
+
+export const interests: Interest[] = [
+  {
+    code: "DFA/INT.01-WD",
+    title: "Web Development",
+    why: "I like turning a messy process into a *system people rely on* — from the database schema to the *last button*.",
+    focus: ["Full-stack: Laravel, Next.js, Supabase", "Typed code, clean data, tested flows", "Internal tools teams use every day"],
+    stamp: "Shipped, not just designed",
+  },
+  {
+    code: "DFA/INT.02-UX",
+    title: "UI/UX Design",
+    why: "Good software is invisible until it isn't. I care about layouts that *explain themselves* and flows that *never make you guess*.",
+    focus: ["Clear hierarchy and typography", "Accessible by default — keyboard, contrast", "Designed in the browser, tested on phones"],
+    stamp: "No guesswork for users",
+  },
+  {
+    code: "DFA/INT.03-IX",
+    title: "Interactive Website",
+    why: "A website can be *remembered*, not just read. Motion, 3D and play — used where they make the story *clearer*.",
+    focus: ["Scroll-driven scenes with GSAP", "Real-time 3D with Three.js", "Playful details that stay fast"],
+    stamp: "Made to be remembered",
+  },
 ];

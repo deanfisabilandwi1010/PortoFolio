@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import { gsap, useGSAP } from "../motion/gsap";
 import { MM } from "../motion/useMotionPreference";
-import { dutyAreas, navLinks, profile, projects } from "../data/portfolio";
+import { navLinks, profile } from "../data/portfolio";
 import { navigate } from "./navigate";
 import { PortraitArch } from "./PortraitArch";
+import { HeroIndex } from "./HeroIndex";
 import { Wordmark } from "./Wordmark";
 import { Clock } from "./Clock";
 import { RollLink } from "./RollLink";
@@ -11,15 +12,6 @@ import { ArrowDown, ArrowUpRight } from "./Icons";
 import styles from "./Hero.module.css";
 
 const PHRASES = ["and looks the part.", "and stays secure.", "and feels crafted.", "and lasts."];
-
-const apps = dutyAreas[0]?.apps ?? [];
-const INDEX = [
-  { label: "Now", value: `${profile.role}, ${profile.company}`, href: "#about" },
-  { label: "Manages", value: apps.map((a) => a.name).join(" · "), href: "#day-job" },
-  { label: "Secures", value: "SecurityScorecard web posture", href: "#day-job" },
-  { label: "Studied", value: "Information Systems, Universitas Andalas", href: "#about" },
-  { label: "Shipped", value: projects.map((p) => p.title).join(" · "), href: "#work" },
-];
 
 /** `markInPlace`: the loader already placed the wordmark, so it does not animate in again. */
 export function Hero({ play, markInPlace }: { play: boolean; markInPlace: boolean }) {
@@ -44,7 +36,9 @@ export function Hero({ play, markInPlace }: { play: boolean; markInPlace: boolea
         if (phrases.length > 1) {
           const HOLD = 3;
           gsap.set(phrases.slice(1), { yPercent: 110 });
-          const loop = gsap.timeline({ repeat: -1 });
+          // Held until the entrance, so it cannot lift a phrase out of its still-hidden line.
+          const loop = gsap.timeline({ repeat: -1, paused: true });
+          tl.call(() => loop.play(), undefined, 0.4);
           phrases.forEach((ph, i) => {
             const next = phrases[(i + 1) % phrases.length];
             const t = (i + 1) * HOLD;
@@ -204,26 +198,7 @@ export function Hero({ play, markInPlace }: { play: boolean; markInPlace: boolea
           <PortraitArch play={play} />
         </div>
 
-        <nav className={styles.index} aria-label="At a glance" data-hero-rise>
-          <p className={`${styles.indexHead} label-mono`}>
-            <span>Index</span>
-            <span>{String(INDEX.length).padStart(2, "0")}</span>
-          </p>
-          <ol>
-            {INDEX.map((row, i) => (
-              <li key={row.label}>
-                <a href={row.href} className={styles.row}>
-                  <span className={`${styles.rowNum} label-mono`}>{String(i + 1).padStart(2, "0")}</span>
-                  <span className={styles.rowText}>
-                    <span className={`${styles.rowLabel} label-mono`}>{row.label}</span>
-                    <span className={styles.rowValue}>{row.value}</span>
-                  </span>
-                  <ArrowUpRight className={styles.rowArrow} />
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <HeroIndex className={styles.index} />
       </div>
 
       <div className={`${styles.wordmark} shell`} data-hero-wordmark>

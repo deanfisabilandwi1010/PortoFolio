@@ -122,7 +122,7 @@ Bagian About memakai struktur dua sisi yang tidak simetris:
 
 Di bawah bio, sebuah rail kecil membagi pekerjaan Dean menjadi dua jalur:
 
-- **Keeps systems running** — ERP, E-Arsip, Kinerja, GCG.
+- **Keeps systems running** — four internal systems (names withheld; shown by area only).
 - **Keeps the web surface clean** — SecurityScorecard, TLS, headers, remediation.
 
 Rail ini hanya memberi orientasi. Detail lengkap tetap berada pada `Day Job.txt` di desktop personal.
