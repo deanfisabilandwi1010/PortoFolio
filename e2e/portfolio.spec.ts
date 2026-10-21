@@ -367,6 +367,20 @@ test.describe("mobile", () => {
     await expect(win(page, "Photo Booth.jpg")).toBeHidden();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   });
+
+  test("the page never scrolls sideways, top to bottom", async ({ page }) => {
+    await page.goto("/");
+    const skip = page.getByRole("button", { name: "Skip intro" });
+    if (await skip.isVisible().catch(() => false)) await skip.click({ timeout: 1500, force: true }).catch(() => {});
+    await expect(skip).toHaveCount(0);
+    // clientWidth, not innerWidth: a phone browser widens innerWidth to fit overflow, hiding it.
+    const total = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y < total; y += 600) {
+      await page.evaluate((top) => window.scrollTo(0, top), y);
+      const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
+      expect(sw, `sideways overflow at y=${y}`).toBeLessThanOrEqual(cw);
+    }
+  });
 });
 
 test.describe("photo booth clip", () => {

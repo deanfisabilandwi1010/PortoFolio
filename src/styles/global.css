@@ -43,6 +43,13 @@ body.is-locked {
   overflow: hidden;
 }
 
+/* body's clip is handed to the viewport, and phone browsers still widen the page to fit
+   anything that sticks out (the leaning marquees, the stack table's scattered entrance).
+   Clipping here holds the page to the screen; `clip` (not `hidden`) keeps sticky and pins working. */
+#main {
+  overflow-x: clip;
+}
+
 img,
 svg {
   display: block;

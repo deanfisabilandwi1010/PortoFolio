@@ -1,0 +1,335 @@
+{
+  "schema": "standalone-puller-art-v1",
+  "note": "Reference metadata only. Run the original repository build-puller-sheet.mjs to regenerate its expected JSON schema.",
+  "canvas": {
+    "width": 768,
+    "height": 1024
+  },
+  "sheet": {
+    "file": "/assets/loader/puller.webp",
+    "width": 6144,
+    "height": 1024,
+    "columns": 8,
+    "rows": 1,
+    "format": "lossless WebP with alpha"
+  },
+  "coordinateSystem": "top-left; pixel coordinates; frame indices are zero-based",
+  "gripTarget": {
+    "x": 384,
+    "y": 30
+  },
+  "gripCenterTolerancePixels": 0.5,
+  "uniformRasterScale": 2,
+  "hangingCycle": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "landingFrame": 4,
+  "holdingFrame": 5,
+  "tugFrame": 6,
+  "waveFrame": 7,
+  "suggestedHangingFps": 8,
+  "frames": [
+    {
+      "index": 0,
+      "frame": 1,
+      "name": "hang-a",
+      "file": "Asset/loader/puller-01.png",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 383.75,
+      "grippingHands": [
+        {
+          "left": 253,
+          "right": 320,
+          "centerX": 287
+        },
+        {
+          "left": 447,
+          "right": 513,
+          "centerX": 480.5
+        }
+      ],
+      "soleY": 967,
+      "soleFromGrip": 937,
+      "normalizedSoleY": 0.9443359375,
+      "alphaBounds": {
+        "left": 198,
+        "top": 30,
+        "right": 525,
+        "bottom": 967
+      }
+    },
+    {
+      "index": 1,
+      "frame": 2,
+      "name": "hang-b",
+      "file": "Asset/loader/puller-02.png",
+      "rect": {
+        "x": 768,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384.5,
+      "grippingHands": [
+        {
+          "left": 254,
+          "right": 321,
+          "centerX": 288
+        },
+        {
+          "left": 447,
+          "right": 514,
+          "centerX": 481
+        }
+      ],
+      "soleY": 975,
+      "soleFromGrip": 945,
+      "normalizedSoleY": 0.9521484375,
+      "alphaBounds": {
+        "left": 226,
+        "top": 30,
+        "right": 517,
+        "bottom": 975
+      }
+    },
+    {
+      "index": 2,
+      "frame": 3,
+      "name": "hang-c",
+      "file": "Asset/loader/puller-03.png",
+      "rect": {
+        "x": 1536,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 383.75,
+      "grippingHands": [
+        {
+          "left": 253,
+          "right": 320,
+          "centerX": 287
+        },
+        {
+          "left": 447,
+          "right": 513,
+          "centerX": 480.5
+        }
+      ],
+      "soleY": 973,
+      "soleFromGrip": 943,
+      "normalizedSoleY": 0.9501953125,
+      "alphaBounds": {
+        "left": 236,
+        "top": 30,
+        "right": 553,
+        "bottom": 973
+      }
+    },
+    {
+      "index": 3,
+      "frame": 4,
+      "name": "hang-d",
+      "file": "Asset/loader/puller-04.png",
+      "rect": {
+        "x": 2304,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384.25,
+      "grippingHands": [
+        {
+          "left": 254,
+          "right": 320,
+          "centerX": 287.5
+        },
+        {
+          "left": 447,
+          "right": 514,
+          "centerX": 481
+        }
+      ],
+      "soleY": 969,
+      "soleFromGrip": 939,
+      "normalizedSoleY": 0.9462890625,
+      "alphaBounds": {
+        "left": 239,
+        "top": 30,
+        "right": 523,
+        "bottom": 969
+      }
+    },
+    {
+      "index": 4,
+      "frame": 5,
+      "name": "landing",
+      "file": "Asset/loader/puller-05.png",
+      "rect": {
+        "x": 3072,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384.5,
+      "grippingHands": [
+        {
+          "left": 244,
+          "right": 313,
+          "centerX": 279
+        },
+        {
+          "left": 455,
+          "right": 524,
+          "centerX": 490
+        }
+      ],
+      "soleY": 833,
+      "soleFromGrip": 803,
+      "normalizedSoleY": 0.8134765625,
+      "alphaBounds": {
+        "left": 125,
+        "top": 30,
+        "right": 622,
+        "bottom": 833
+      }
+    },
+    {
+      "index": 5,
+      "frame": 6,
+      "name": "holding-standing",
+      "file": "Asset/loader/puller-06.png",
+      "rect": {
+        "x": 3840,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384.25,
+      "grippingHands": [
+        {
+          "left": 252,
+          "right": 319,
+          "centerX": 286
+        },
+        {
+          "left": 448,
+          "right": 516,
+          "centerX": 482.5
+        }
+      ],
+      "soleY": 940,
+      "soleFromGrip": 910,
+      "normalizedSoleY": 0.91796875,
+      "alphaBounds": {
+        "left": 153,
+        "top": 30,
+        "right": 595,
+        "bottom": 940
+      }
+    },
+    {
+      "index": 6,
+      "frame": 7,
+      "name": "tug",
+      "file": "Asset/loader/puller-07.png",
+      "rect": {
+        "x": 4608,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384.5,
+      "grippingHands": [
+        {
+          "left": 243,
+          "right": 311,
+          "centerX": 277.5
+        },
+        {
+          "left": 457,
+          "right": 525,
+          "centerX": 491.5
+        }
+      ],
+      "soleY": 839,
+      "soleFromGrip": 809,
+      "normalizedSoleY": 0.8193359375,
+      "alphaBounds": {
+        "left": 137,
+        "top": 30,
+        "right": 612,
+        "bottom": 839
+      }
+    },
+    {
+      "index": 7,
+      "frame": 8,
+      "name": "carried-away-wave",
+      "file": "Asset/loader/puller-08.png",
+      "rect": {
+        "x": 5376,
+        "y": 0,
+        "width": 768,
+        "height": 1024
+      },
+      "gripAnchor": {
+        "x": 384,
+        "y": 30
+      },
+      "measuredGripCenterX": 384,
+      "grippingHands": [
+        {
+          "left": 351,
+          "right": 416,
+          "centerX": 384
+        }
+      ],
+      "soleY": 931,
+      "soleFromGrip": 901,
+      "normalizedSoleY": 0.9091796875,
+      "alphaBounds": {
+        "left": 296,
+        "top": 30,
+        "right": 670,
+        "bottom": 931
+      }
+    }
+  ]
+}

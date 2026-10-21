@@ -1,3 +1,5 @@
+import pullerSheet from "../data/puller-sheet.json";
+
 /** Cartoon Dean: 8 frames side by side, built by scripts/build-pusher-sheet.mjs. Used by the loader and Contact. */
 export const PUSHER = {
   src: "/assets/loader/pusher.webp",
@@ -14,3 +16,18 @@ export const PUSHER = {
 
 /** background-position-x that shows frame `f` of the sheet. */
 export const pusherFrame = (f: number) => `${(f / (PUSHER.frames - 1)) * 100}%`;
+
+/** Same character hanging from a bar, for the navigation shade. Built by scripts/build-puller-sheet.mjs. */
+export const PULLER = {
+  src: "/assets/loader/puller.webp",
+  ...pullerSheet,
+  /** frames 0-3 are the hanging cycle */
+  cycle: 4,
+  land: 4,
+  hold: 5,
+  tug: 6,
+  wave: 7,
+} as const;
+
+/** background-position-x that shows frame `f` of the puller sheet. */
+export const pullerFrame = (f: number) => `${(f / (PULLER.frames - 1)) * 100}%`;
