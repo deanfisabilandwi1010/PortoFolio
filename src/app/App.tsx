@@ -10,6 +10,7 @@ import { Process } from "../components/Process";
 import { TechStack } from "../components/TechStack";
 import { Interests } from "../components/Interests";
 import { SelectedWork } from "../components/SelectedWork";
+import { Experiments } from "../components/Experiments";
 import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
 import { Marquee } from "../components/Marquee";
@@ -74,6 +75,7 @@ function Page() {
         <TechStack />
         <Interests />
         <SelectedWork />
+        <Experiments />
         <Marquee label="Let's build something worth remembering" rows={[["Let's build", "something", "worth remembering", "together"]]} />
         <DesktopScene />
         <Contact />

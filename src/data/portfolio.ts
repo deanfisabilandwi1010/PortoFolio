@@ -217,6 +217,60 @@ export const projects: Project[] = [
   },
 ];
 
+/** Small side projects: shorter write-ups, played as a flipbook of frames. */
+export type Experiment = {
+  id: "err4or";
+  /** Lab code, e.g. "EXP-001". */
+  code: string;
+  title: string;
+  tagline: string;
+  liveUrl: string;
+  githubUrl: string | null;
+  summary: string;
+  /** What to look for, one line each. */
+  notes: string[];
+  stack: string[];
+  year: number | null;
+  /** Desktop frames at increasing scroll depth; `sm` copies for small slots. */
+  frames: { src: string; sm: string; alt: string }[];
+  mobile: string;
+  mobileAlt: string;
+};
+
+export const experiments: Experiment[] = [
+  {
+    id: "err4or",
+    code: "EXP-001",
+    title: "Err4or",
+    tagline: "A portfolio that reads like a case file.",
+    liveUrl: "https://err4or.vercel.app/",
+    githubUrl: "https://github.com/deanfisabilandwi1010/Err4or",
+    summary:
+      "My other portfolio, as a digital designer — told as an investigation. A 3D figure stands in a dark room while an error log scrolls beside it, and the story writes itself line by line as you scroll — until the screen dissolves into halftone.",
+    notes: [
+      "3D figure in a dark, monitored scene",
+      "Live error log running beside the story",
+      "Narrative that appears line by line on scroll",
+      "Halftone dissolve between chapters",
+      "Desktop only, on purpose — phones get a polite refusal",
+    ],
+    stack: ["Three.js", "GSAP", "Barba.js", "Vite", "JavaScript"],
+    year: 2026,
+    frames: [1, 2, 3, 4].map((i) => ({
+      src: `/assets/experiments/err4or-${i}.webp`,
+      sm: `/assets/experiments/err4or-${i}-sm.webp`,
+      alt: [
+        "A teal 3D figure in a dark room, framed by targeting brackets, with an error log scrolling on the right",
+        "The case-file story appearing in short uppercase lines around the figure",
+        "More of the story, the figure turned away, the log still running",
+        "The screen dissolving into a white halftone wave beneath the figure",
+      ][i - 1],
+    })),
+    mobile: "/assets/experiments/err4or-mobile.webp",
+    mobileAlt: "On a phone: a red screen with the site's mark that says the experience is best viewed on a desktop",
+  },
+];
+
 export const processSteps = [
   { index: "01", title: "Understand", italic: "the people", body: "Who is this for, and what should they walk away with? I start with the people and the problem, not the pixels." },
   { index: "02", title: "Design", italic: "with intent", body: "Composition, type and motion get decided together, so the site has a point of view before a line of code exists." },
@@ -226,6 +280,7 @@ export const processSteps = [
 
 export const navLinks = [
   { href: "#work", label: "Work" },
+  { href: "#experiments", label: "Lab" },
   { href: "#about", label: "About" },
   { href: "#stack", label: "Stack" },
   { href: "#desktop", label: "Desktop" },

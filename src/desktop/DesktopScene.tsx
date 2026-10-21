@@ -132,7 +132,7 @@ export function DesktopScene() {
     <section ref={root} id="desktop" className={`${styles.scene} ${sceneClass}`} aria-labelledby="desktop-title" data-scene={scene || undefined}>
       {!scene && (
         <div className={`${styles.intro} shell`}>
-          <p className={`${styles.kicker} label-mono`}>(09) Personal desktop</p>
+          <p className={`${styles.kicker} label-mono`}>(10) Personal desktop</p>
           <h2 id="desktop-title" className="section-title">
             Enter my <span className="serif">desktop.</span>
           </h2>
@@ -148,7 +148,7 @@ export function DesktopScene() {
         <div className={styles.stage} data-desktop-stage>
           {scene && (
             <div className={styles.statement} data-statement>
-              <p className={`${styles.kicker} label-mono`}>(09) Personal desktop</p>
+              <p className={`${styles.kicker} label-mono`}>(10) Personal desktop</p>
               <h2 id="desktop-title" className={styles.statementTitle}>
                 {STATEMENT.map((w) => (
                   <span key={w} className={styles.word} data-statement-word>

@@ -9,11 +9,13 @@ import { PhotoViewer } from "./PhotoViewer";
 import { clips, photos } from "../data/photos";
 import { VideoPlayer } from "./VideoPlayer";
 import { ProjectsApp } from "./ProjectsApp";
+import { ExperimentsApp } from "./ExperimentsApp";
 import { AboutApp, ContactApp, DayJobApp } from "./TextApps";
 import styles from "./DesktopSurface.module.css";
 
 const content: Record<WindowId, () => ReactNode> = {
   projects: () => <ProjectsApp />,
+  experiments: () => <ExperimentsApp />,
   about: () => <AboutApp />,
   dayjob: () => <DayJobApp />,
   contact: () => <ContactApp />,

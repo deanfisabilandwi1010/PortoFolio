@@ -383,6 +383,25 @@ test.describe("mobile", () => {
   });
 });
 
+test.describe("experiments", () => {
+  test("lists the experiment with real links and a working frame strip", async ({ page }) => {
+    await page.goto("/#experiments");
+    const section = page.locator("#experiments");
+    // Located by id: the heading stays hidden by its scroll reveal until it is scrolled to.
+    const title = page.locator("#err4or-title");
+    await title.evaluate((el) => el.scrollIntoView({ block: "center" }));
+    await expect(title).toBeVisible();
+    await expect(title).toHaveText("Err4or");
+    await expect(section.locator('a[href="https://err4or.vercel.app/"]').first()).toBeAttached();
+    await expect(section.locator('a[href="https://github.com/deanfisabilandwi1010/Err4or"]')).toHaveCount(1);
+    const third = section.getByRole("button", { name: /^Frame 3 of 4/ });
+    await third.scrollIntoViewIfNeeded();
+    await third.click();
+    await expect(third).toHaveAttribute("aria-pressed", "true");
+    await expect(section.locator("[data-screen] img[data-on]")).toHaveAttribute("src", "/assets/experiments/err4or-3.webp");
+  });
+});
+
 test.describe("photo booth clip", () => {
   test("opens from its desktop icon, plays, and stops when closed", async ({ page, isMobile }) => {
     await openDesktop(page);

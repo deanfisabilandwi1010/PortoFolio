@@ -161,6 +161,15 @@
     display: none;
   }
 }
+/* Six links on a 320px phone: tighten the row rather than drop one. */
+@media (max-width: 380px) {
+  .nav {
+    gap: 8px;
+  }
+  .nav :global(.label) {
+    font-size: 0.75rem;
+  }
+}
 
 /* Without motion the phrases don't cycle: show the first one only. */
 @media (prefers-reduced-motion: reduce) {

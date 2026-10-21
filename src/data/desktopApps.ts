@@ -2,7 +2,7 @@ import type { Rect, Size } from "../desktop/windowGeometry";
 import { ICON_COLUMN } from "../desktop/windowGeometry";
 import { profile } from "./portfolio";
 
-export type WindowId = "about" | "dayjob" | "portrait" | "photobooth" | "photoboothClip" | "memories" | "afterHours" | "projects" | "contact";
+export type WindowId = "experiments" | "about" | "dayjob" | "portrait" | "photobooth" | "photoboothClip" | "memories" | "afterHours" | "projects" | "contact";
 
 export type DesktopApp = {
   id: WindowId;
@@ -27,6 +27,13 @@ export const desktopApps: DesktopApp[] = [
     title: "Projects",
     kind: "folder",
     layout: (b) => ({ x: 24, y: b.height - 500 - 24, width: Math.min(560, usable(b) - 48), height: 500 }),
+  },
+  {
+    id: "experiments",
+    file: "Experiments",
+    title: "Experiments",
+    kind: "folder",
+    layout: (b) => ({ x: Math.min(160, b.width * 0.1), y: 48, width: Math.min(520, usable(b) - 48), height: 440 }),
   },
   {
     id: "about",

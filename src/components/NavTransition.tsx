@@ -16,8 +16,9 @@ const DESTINATIONS: Record<string, Dest> = {
   "#stack": { index: "06", title: "My", italic: "toolkit" },
   "#interests": { index: "07", title: "Interested", italic: "in" },
   "#work": { index: "08", title: "Selected", italic: "work" },
-  "#desktop": { index: "09", title: "My", italic: "desktop" },
-  "#contact": { index: "10", title: "Let’s", italic: "talk" },
+  "#experiments": { index: "09", title: "Small", italic: "experiments" },
+  "#desktop": { index: "10", title: "My", italic: "desktop" },
+  "#contact": { index: "11", title: "Let’s", italic: "talk" },
 };
 
 /**

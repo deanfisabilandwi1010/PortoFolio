@@ -103,6 +103,16 @@ for (const id of ["kalili", "tooday", "dompetqu"]) {
   job(`${id} mobile`, () => webp(`${SRC}/projects/${id}-mobile.png`, `${OUT}/projects/${id}-mobile.webp`, { width: 430, quality: 78 }));
 }
 
+// --- Experiments (flipbook frames from scripts/capture-experiments.mjs) ------
+for (const { id, frames } of [{ id: "err4or", frames: 4 }]) {
+  for (let i = 1; i <= frames; i++) {
+    const src = `${SRC}/experiments/${id}-frame-${i}.png`;
+    job(`${id} frame ${i}`, () => webp(src, `${OUT}/experiments/${id}-${i}.webp`, { width: 1200, quality: 78 }));
+    job(`${id} frame ${i} sm`, () => webp(src, `${OUT}/experiments/${id}-${i}-sm.webp`, { width: 640, quality: 72 }));
+  }
+  job(`${id} mobile`, () => webp(`${SRC}/experiments/${id}-mobile.png`, `${OUT}/experiments/${id}-mobile.webp`, { width: 430, quality: 78 }));
+}
+
 // --- Logos ------------------------------------------------------------------
 job("unand logo", async () => {
   // The supplied PNG has a baked-in "transparency" checkerboard. Flood-fill the light,

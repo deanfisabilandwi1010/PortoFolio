@@ -88,6 +88,15 @@
     height: 14px;
   }
 }
+/* Six links on a 320px phone: tighten the row rather than drop one. */
+@media (max-width: 380px) {
+  .nav {
+    gap: 9px;
+  }
+  .navLink {
+    font-size: 0.75rem;
+  }
+}
 
 .progress {
   position: absolute;

@@ -164,7 +164,7 @@ export function Contact() {
     <section ref={root} id="contact" className={styles.contact} aria-labelledby="contact-title">
       <div className={`${styles.head} shell`}>
         <p className={`${styles.kicker} label-mono`} data-reveal>
-          (10) Contact
+          (11) Contact
         </p>
         <div className={styles.titleWrap} data-title>
           <h2 id="contact-title" className="section-title" data-reveal-lines>

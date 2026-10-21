@@ -16,7 +16,7 @@ export function Header() {
   // Which section is being read: each nav section spans until the next one starts (page order).
   useGSAP(
     () => {
-      const ids = ["#about", "#stack", "#work", "#desktop", "#contact"];
+      const ids = ["#about", "#stack", "#work", "#experiments", "#desktop", "#contact"];
       const els = ids.map((id) => document.querySelector<HTMLElement>(id));
       const footer = document.querySelector("footer");
       els.forEach((el, i) => {
@@ -49,7 +49,9 @@ export function Header() {
       return;
     }
     const wasHidden = Number(gsap.getProperty(pill, "opacity")) === 0;
-    const box = { x: link.offsetLeft - 12, width: link.offsetWidth + 24 };
+    // The pill hugs the link but never reaches into its neighbours, however tight the row is.
+    const pad = Math.min(12, (parseFloat(getComputedStyle(nav).columnGap) || 24) - 3);
+    const box = { x: link.offsetLeft - pad, width: link.offsetWidth + pad * 2 };
     if (wasHidden) gsap.set(pill, box);
     gsap.to(pill, { ...box, autoAlpha: 1, scale: 1, duration: reduced ? 0 : 0.55, ease: "elastic.out(1, 0.75)" });
   }, [active, reduced]);
