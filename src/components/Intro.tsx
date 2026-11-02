@@ -19,11 +19,12 @@ export function shouldPlayIntro() {
 
 /** Assets the first screen actually needs. The counter only reports these. */
 const CRITICAL_IMAGES = [
-  "/assets/logos/pln-nusa-daya.webp",
+  "/assets/logos/pln-services.webp",
   "/assets/logos/unand.webp",
   "/assets/projects/kalili-preview-sm.webp",
   "/assets/projects/tooday-preview-sm.webp",
   "/assets/projects/dompetqu-preview-sm.webp",
+  "/assets/projects/plnservices-preview-sm.webp",
 ];
 const { src: SPRITE, brace: BRACE, done: DONE, palms: PALMS, soles: SOLES } = PUSHER;
 const MIN_TIME = 2.2; // seconds the push takes even on a warm cache, so it reads as a push
@@ -270,7 +271,7 @@ export function Intro({ onReveal, onDone }: Props) {
         <span className={styles.who}>
           {profile.name} <span className="serif">— portfolio</span>
         </span>
-        <span className="label-mono">Programmer · PLN Nusa Daya</span>
+        <span className="label-mono">Programmer · PLN Services</span>
       </p>
       <button type="button" className={`${styles.skip} label`} data-skip onClick={() => exitRef.current()}>
         Skip intro

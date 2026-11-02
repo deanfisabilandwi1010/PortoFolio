@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { gsap, useGSAP } from "../motion/gsap";
-import { projects } from "../data/portfolio";
+import { projectCount, projects } from "../data/portfolio";
 import { ArrowUpRight, GithubMark } from "./Icons";
 import styles from "./WorkShowcase.module.css";
 
@@ -61,7 +61,7 @@ export function WorkShowcase() {
         <h2 id="work-title" className={styles.title}>
           Selected <span className="serif">work</span>
         </h2>
-        <p className={styles.intro}>{projects.length === 2 ? "Two" : projects.length === 3 ? "Three" : projects.length} live projects — designed, built and shipped. Scroll to flip through them.</p>
+        <p className={styles.intro}>{projectCount} live projects — designed, built and shipped. Scroll to flip through them.</p>
 
         <div className={styles.listWrap}>
           <span className={styles.progress} aria-hidden>

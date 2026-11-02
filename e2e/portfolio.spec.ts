@@ -52,6 +52,9 @@ test.describe("intro & page", () => {
     await expect(page.locator('#project-tooday a[href="https://github.com/deanfisabilandwi1010/t00day"]')).toHaveCount(1);
     await expect(page.locator('#project-dompetqu a[href="https://dompetqu-personal.vercel.app/"]').first()).toBeAttached();
     await expect(page.locator('#project-dompetqu a[href="https://github.com/deanfisabilandwi1010/DompDigital"]')).toHaveCount(1);
+    await expect(page.locator('#project-plnservices a[href="https://plnservices.co.id/beranda"]').first()).toBeAttached();
+    // company project: live link only, no source link
+    await expect(page.locator('#project-plnservices a[href*="github.com"]')).toHaveCount(0);
     expect(await page.locator('a[href="#"], a[href=""], a:not([href])').count()).toBe(0);
   });
 
@@ -64,8 +67,9 @@ test.describe("intro & page", () => {
       return { top: spacer.getBoundingClientRect().top + window.scrollY, h: spacer.offsetHeight };
     });
     await page.evaluate((y) => window.scrollTo(0, y), pin.top + pin.h - page.viewportSize()!.height);
-    await expect(page.locator("#project-dompetqu")).toHaveAttribute("data-active", "true");
-    await expect(page.locator("#project-dompetqu").getByRole("link", { name: /Live website/ })).toBeVisible();
+    await expect(page.locator("#project-plnservices")).toHaveAttribute("data-active", "true");
+    // The column is pinned, so nothing below the fold can be scrolled to.
+    await expect(page.locator("#project-plnservices").getByRole("link", { name: /Live website/ })).toBeInViewport({ ratio: 1 });
   });
 
   test("project details disclosure toggles", async ({ page, isMobile }) => {
@@ -334,7 +338,7 @@ test.describe("desktop (windowed)", () => {
   test("window content scrolls locally; wallpaper scroll moves the page", async ({ page }) => {
     await openDesktop(page);
     await page.getByRole("button", { name: "Open Day Job.txt" }).click();
-    const w = win(page, "Day Job.txt — PLN Nusa Daya");
+    const w = win(page, "Day Job.txt — PLN Services");
     await expect(w).toBeVisible();
     const body = w.locator("[data-lenis-prevent]");
     const box = (await body.boundingBox())!;

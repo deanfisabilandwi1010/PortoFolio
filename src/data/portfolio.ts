@@ -3,7 +3,7 @@
 // lists anything that still needs the owner's input before going live.
 
 export type Project = {
-  id: "kalili" | "tooday" | "dompetqu";
+  id: "kalili" | "tooday" | "dompetqu" | "plnservices";
   index: string;
   title: string;
   client: string;
@@ -75,9 +75,9 @@ export const profile: Profile = {
   wordmark: "DEAN FISABIL ANDWI",
   closingWordmark: "ANDWI",
   role: "Programmer",
-  company: "PLN Nusa Daya",
+  company: "PLN Services",
   bio: [
-    "I'm Dean — a programmer at PLN Nusa Daya and an Information Systems graduate of Universitas Andalas.",
+    "I'm Dean — a programmer at PLN Services and an Information Systems graduate of Universitas Andalas.",
     "By day I keep internal applications running and the company's public web surface secure. Outside of that, I design and build expressive websites for local brands — the kind people remember after they close the tab.",
   ],
   email: "deanfisabilandwi@gmail.com",
@@ -95,10 +95,10 @@ export const credentials: Credential[] = [
     id: "pln",
     kind: "Currently",
     title: "Programmer",
-    org: "PLN Nusa Daya",
-    logo: "/assets/logos/pln-nusa-daya.webp",
-    logoAlt: "PLN Nusa Daya logo",
-    logoWidth: 538,
+    org: "PLN Services",
+    logo: "/assets/logos/pln-services.webp",
+    logoAlt: "PLN Services logo",
+    logoWidth: 496,
     logoHeight: 160,
   },
   {
@@ -119,7 +119,7 @@ export const dutyAreas: DutyArea[] = [
     title: "Internal",
     italic: "applications",
     summary:
-      "I manage the internal web applications teams at PLN Nusa Daya rely on every day — keeping them running, fixing what breaks, and shipping the improvements people ask for.",
+      "I manage the internal web applications teams at PLN Services rely on every day — keeping them running, fixing what breaks, and shipping the improvements people ask for.",
     apps: [
       { code: "SYS-01", area: "Operations", short: "Keeps everyday processes moving", art: "modules" },
       { code: "SYS-02", area: "Records", short: "Documents, archived and easy to find", art: "archive" },
@@ -215,7 +215,35 @@ export const projects: Project[] = [
     previewMobile: "/assets/projects/dompetqu-mobile.webp",
     previewAlt: "DompetQu dashboard in demo mode: balance, income and spending cards above cash-flow and category charts",
   },
+  {
+    id: "plnservices",
+    index: "04",
+    title: "PLN Services",
+    client: "PT PLN Services",
+    // The root domain is still a "Coming Soon" page; the site itself lives here.
+    liveUrl: "https://plnservices.co.id/beranda",
+    // Company site: the repository is deliberately not linked from the portfolio.
+    githubUrl: null,
+    summary:
+      "The corporate website of PT PLN Services, PLN's fifth sub-holding. A full company profile with an admin portal behind it, where the numbers don't just sit on the page: they move, regroup and explain themselves as you scroll.",
+    highlights: [
+      "Hero of two overlapping circles that cycle through project photos",
+      "Scroll stories: one box per service unit, regrouping into a map and bars",
+      "Interactive timeline of projects and news, with filters",
+      "Admin portal that manages all of the site's content",
+    ],
+    role: null,
+    stack: ["Laravel", "Blade", "Tailwind CSS", "GSAP", "Lenis", "Leaflet"],
+    year: 2026,
+    preview: "/assets/projects/plnservices-preview.webp",
+    previewSmall: "/assets/projects/plnservices-preview-sm.webp",
+    previewMobile: "/assets/projects/plnservices-mobile.webp",
+    previewAlt: "PT PLN Services homepage: the company name beside two overlapping circles, blue and yellow, framing a field technician",
+  },
 ];
+
+/** "Four", for sentences about the project list. */
+export const projectCount = ["Zero", "One", "Two", "Three", "Four", "Five", "Six"][projects.length] ?? String(projects.length);
 
 /** Small side projects: shorter write-ups, played as a flipbook of frames. */
 export type Experiment = {

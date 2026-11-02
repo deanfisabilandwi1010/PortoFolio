@@ -5,7 +5,7 @@ import { projects } from "../data/portfolio";
 import styles from "./ProjectMontage.module.css";
 
 /**
- * Scale moment #1: the two projects start as a small frame under the hero
+ * Scale moment #1: the projects start as a small frame under the hero
  * and grow to fill the stage as the visitor scrolls.
  */
 export function ProjectMontage({ play }: { play: boolean }) {

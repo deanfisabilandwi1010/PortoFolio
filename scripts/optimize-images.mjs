@@ -97,7 +97,7 @@ job("mascot", async () => {
 });
 
 // --- Projects ---------------------------------------------------------------
-for (const id of ["kalili", "tooday", "dompetqu"]) {
+for (const id of ["kalili", "tooday", "dompetqu", "plnservices"]) {
   job(`${id} desktop`, () => webp(`${SRC}/projects/${id}-desktop.png`, `${OUT}/projects/${id}-preview.webp`, { width: 1600, quality: 80 }));
   job(`${id} desktop sm`, () => webp(`${SRC}/projects/${id}-desktop.png`, `${OUT}/projects/${id}-preview-sm.webp`, { width: 800, quality: 76 }));
   job(`${id} mobile`, () => webp(`${SRC}/projects/${id}-mobile.png`, `${OUT}/projects/${id}-mobile.webp`, { width: 430, quality: 78 }));
@@ -145,8 +145,8 @@ job("unand logo", async () => {
   await report(out);
 });
 job("pln logo", async () => {
-  const out = await ensure(`${OUT}/logos/pln-nusa-daya.webp`);
-  await sharp(`${SRC}/logos/pln-nusa-daya.png`).trim({ threshold: 1 }).resize({ height: 160 }).webp({ quality: 88, alphaQuality: 100 }).toFile(out);
+  const out = await ensure(`${OUT}/logos/pln-services.webp`);
+  await sharp(`${SRC}/logos/pln-services.png`).trim({ threshold: 1 }).resize({ height: 160 }).webp({ quality: 88, alphaQuality: 100 }).toFile(out);
   await report(out);
 });
 

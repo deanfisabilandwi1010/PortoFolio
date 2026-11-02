@@ -11,7 +11,7 @@ import styles from "./DayJob.module.css";
 const PIPELINE = ["Request", "Build", "Deploy", "Support"];
 const idx = (i: number) => ({ "--i": i }) as CSSProperties;
 
-/** What Dean does at PLN Nusa Daya, beyond the personal projects. */
+/** What Dean does at PLN Services, beyond the personal projects. */
 export function DayJob() {
   const root = useRef<HTMLElement>(null);
   useReveal(root);
@@ -63,7 +63,7 @@ export function DayJob() {
             </span>
           </h2>
           <div className={styles.intro} data-reveal>
-            <img src="/assets/logos/pln-nusa-daya.webp" alt="PLN Nusa Daya logo" width={538} height={160} loading="lazy" />
+            <img src="/assets/logos/pln-services.webp" alt="PLN Services logo" width={496} height={160} loading="lazy" />
             <ScrubWords
               text={`Alongside the websites I build, my role as a ${profile.role.toLowerCase()} at ${profile.company} sits behind the login screen: the applications colleagues use every day, and the security of what the public can reach.`}
             />

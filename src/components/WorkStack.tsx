@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from "react";
 import { gsap, useGSAP } from "../motion/gsap";
-import { projects, type Project } from "../data/portfolio";
+import { projectCount, projects, type Project } from "../data/portfolio";
 import { useReveal } from "../motion/useReveal";
 import { ArrowUpRight, GithubMark, Plus } from "./Icons";
 import styles from "./WorkStack.module.css";
@@ -90,7 +90,7 @@ export function WorkStack() {
           </span>
         </h2>
         <p className={styles.intro} data-reveal>
-          {projects.length === 2 ? "Two" : projects.length === 3 ? "Three" : projects.length} live projects — designed, built and shipped. Flip each preview between desktop and phone.
+          {projectCount} live projects — designed, built and shipped. Flip each preview between desktop and phone.
         </p>
       </div>
       <div className={styles.cards}>

@@ -23,13 +23,13 @@
 .title {
   margin-top: 14px;
   color: var(--color-olive);
-  font-size: clamp(3rem, 1.6rem + 4vw, 6.5rem);
+  /* capped by height too: everything in this pinned column must fit on screen */
+  font-size: min(clamp(3rem, 1.6rem + 4vw, 6.5rem), 11svh);
   font-weight: 700;
   line-height: 0.92;
   letter-spacing: -0.04em;
 }
 .title :global(.serif) {
-  display: block;
   font-size: 1.06em;
   letter-spacing: -0.01em;
 }
@@ -65,7 +65,7 @@
   grid-template-columns: 34px 1fr auto;
   align-items: baseline;
   gap: 10px;
-  padding: 12px 0;
+  padding: clamp(5px, 1svh, 12px) 0;
   border-bottom: 1px solid var(--border-strong);
   color: var(--color-olive);
   opacity: 0.32;
@@ -237,8 +237,18 @@
   }
 }
 
+/* Pinned column: optional parts drop out as the screen gets shorter. */
+@media (max-height: 960px) {
+  .intro {
+    display: none;
+  }
+}
+@media (max-height: 840px) {
+  .highlights {
+    display: none;
+  }
+}
 @media (max-height: 760px) {
-  .intro,
   .meta {
     display: none;
   }
